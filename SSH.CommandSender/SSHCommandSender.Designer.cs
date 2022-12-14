@@ -33,32 +33,39 @@
             this.tabSshOutputs = new System.Windows.Forms.TabControl();
             this.ctxMenuProccessOutputs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuSaveOutputsToFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnRunCommands = new System.Windows.Forms.Button();
-            this.btnLoadServersListFromFile = new System.Windows.Forms.Button();
+            this.btnAddNewServer = new System.Windows.Forms.Button();
             this.progressBarRunningTasks = new System.Windows.Forms.ProgressBar();
             this.ctxMenuServers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuRemoveSelectedServers = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxMenuCommands = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuRemoveSelectedCommands = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxProccessOutputs = new System.Windows.Forms.GroupBox();
-            this.btnLoadCommandsFromFile = new System.Windows.Forms.Button();
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxServers = new System.Windows.Forms.GroupBox();
+            this.tableLayoutServers = new System.Windows.Forms.TableLayoutPanel();
             this.chkListServers = new System.Windows.Forms.CheckedListBox();
             this.groupBoxCommands = new System.Windows.Forms.GroupBox();
-            this.chkListCommands = new System.Windows.Forms.CheckedListBox();
-            this.tableLayoutServers = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutCommands = new System.Windows.Forms.TableLayoutPanel();
+            this.chkListCommands = new System.Windows.Forms.CheckedListBox();
+            this.tableLayoutPanelServersButtons = new System.Windows.Forms.TableLayoutPanel();
+            this.btnImportServers = new System.Windows.Forms.Button();
+            this.btnExportServers = new System.Windows.Forms.Button();
+            this.tableLayoutPanelCommandsButtons = new System.Windows.Forms.TableLayoutPanel();
+            this.btnImportCommand = new System.Windows.Forms.Button();
+            this.btnExportCommand = new System.Windows.Forms.Button();
+            this.btnAddNewCommand = new System.Windows.Forms.Button();
             this.ctxMenuProccessOutputs.SuspendLayout();
             this.ctxMenuServers.SuspendLayout();
             this.ctxMenuCommands.SuspendLayout();
             this.groupBoxProccessOutputs.SuspendLayout();
             this.tableLayoutMain.SuspendLayout();
             this.groupBoxServers.SuspendLayout();
-            this.groupBoxCommands.SuspendLayout();
             this.tableLayoutServers.SuspendLayout();
+            this.groupBoxCommands.SuspendLayout();
             this.tableLayoutCommands.SuspendLayout();
+            this.tableLayoutPanelServersButtons.SuspendLayout();
+            this.tableLayoutPanelCommandsButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabSshOutputs
@@ -87,16 +94,6 @@
             this.menuSaveOutputsToFile.Text = "Save Outputs To File";
             this.menuSaveOutputsToFile.Click += new System.EventHandler(this.menuSaveOutputsToFile_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(905, 124);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(6, 7);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // btnRunCommands
             // 
             this.btnRunCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -111,19 +108,17 @@
             this.btnRunCommands.UseVisualStyleBackColor = false;
             this.btnRunCommands.Click += new System.EventHandler(this.btnRunCommands_Click);
             // 
-            // btnLoadServersListFromFile
+            // btnAddNewServer
             // 
-            this.btnLoadServersListFromFile.AutoSize = true;
-            this.btnLoadServersListFromFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnLoadServersListFromFile.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLoadServersListFromFile.Location = new System.Drawing.Point(8, 2);
-            this.btnLoadServersListFromFile.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
-            this.btnLoadServersListFromFile.Name = "btnLoadServersListFromFile";
-            this.btnLoadServersListFromFile.Size = new System.Drawing.Size(247, 85);
-            this.btnLoadServersListFromFile.TabIndex = 3;
-            this.btnLoadServersListFromFile.Text = "Load Servers From File";
-            this.btnLoadServersListFromFile.UseVisualStyleBackColor = true;
-            this.btnLoadServersListFromFile.Click += new System.EventHandler(this.btnLoadServersListFromFile_Click);
+            this.btnAddNewServer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddNewServer.Location = new System.Drawing.Point(144, 2);
+            this.btnAddNewServer.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnAddNewServer.Name = "btnAddNewServer";
+            this.btnAddNewServer.Size = new System.Drawing.Size(52, 61);
+            this.btnAddNewServer.TabIndex = 3;
+            this.btnAddNewServer.Text = "Add";
+            this.btnAddNewServer.UseVisualStyleBackColor = true;
+            this.btnAddNewServer.Click += new System.EventHandler(this.btnAddNewServer_Click);
             // 
             // progressBarRunningTasks
             // 
@@ -182,20 +177,6 @@
             this.groupBoxProccessOutputs.TabStop = false;
             this.groupBoxProccessOutputs.Text = "Proccess Outputs";
             // 
-            // btnLoadCommandsFromFile
-            // 
-            this.btnLoadCommandsFromFile.AutoSize = true;
-            this.btnLoadCommandsFromFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnLoadCommandsFromFile.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLoadCommandsFromFile.Location = new System.Drawing.Point(8, 2);
-            this.btnLoadCommandsFromFile.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
-            this.btnLoadCommandsFromFile.Name = "btnLoadCommandsFromFile";
-            this.btnLoadCommandsFromFile.Size = new System.Drawing.Size(317, 109);
-            this.btnLoadCommandsFromFile.TabIndex = 9;
-            this.btnLoadCommandsFromFile.Text = "Load Commands From File";
-            this.btnLoadCommandsFromFile.UseVisualStyleBackColor = true;
-            this.btnLoadCommandsFromFile.Click += new System.EventHandler(this.btnLoadCommandsFromFile_Click);
-            // 
             // tableLayoutMain
             // 
             this.tableLayoutMain.ColumnCount = 3;
@@ -234,16 +215,31 @@
             this.groupBoxServers.TabStop = false;
             this.groupBoxServers.Text = "Servers";
             // 
+            // tableLayoutServers
+            // 
+            this.tableLayoutServers.ColumnCount = 1;
+            this.tableLayoutServers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutServers.Controls.Add(this.chkListServers, 0, 1);
+            this.tableLayoutServers.Controls.Add(this.tableLayoutPanelServersButtons, 0, 0);
+            this.tableLayoutServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutServers.Location = new System.Drawing.Point(7, 16);
+            this.tableLayoutServers.Name = "tableLayoutServers";
+            this.tableLayoutServers.RowCount = 2;
+            this.tableLayoutServers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutServers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutServers.Size = new System.Drawing.Size(210, 719);
+            this.tableLayoutServers.TabIndex = 6;
+            // 
             // chkListServers
             // 
             this.chkListServers.CheckOnClick = true;
             this.chkListServers.ContextMenuStrip = this.ctxMenuServers;
             this.chkListServers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkListServers.FormattingEnabled = true;
-            this.chkListServers.Location = new System.Drawing.Point(0, 89);
+            this.chkListServers.Location = new System.Drawing.Point(0, 71);
             this.chkListServers.Margin = new System.Windows.Forms.Padding(0);
             this.chkListServers.Name = "chkListServers";
-            this.chkListServers.Size = new System.Drawing.Size(263, 810);
+            this.chkListServers.Size = new System.Drawing.Size(210, 648);
             this.chkListServers.TabIndex = 5;
             // 
             // groupBoxCommands
@@ -251,15 +247,31 @@
             this.groupBoxCommands.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBoxCommands.Controls.Add(this.tableLayoutCommands);
             this.groupBoxCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxCommands.Location = new System.Drawing.Point(299, 0);
+            this.groupBoxCommands.Location = new System.Drawing.Point(239, 0);
             this.groupBoxCommands.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.groupBoxCommands.Name = "groupBoxCommands";
             this.groupBoxCommands.Padding = new System.Windows.Forms.Padding(7, 0, 7, 5);
             this.tableLayoutMain.SetRowSpan(this.groupBoxCommands, 2);
-            this.groupBoxCommands.Size = new System.Drawing.Size(280, 925);
+            this.groupBoxCommands.Size = new System.Drawing.Size(224, 740);
             this.groupBoxCommands.TabIndex = 7;
             this.groupBoxCommands.TabStop = false;
             this.groupBoxCommands.Text = "Commands";
+            // 
+            // tableLayoutCommands
+            // 
+            this.tableLayoutCommands.ColumnCount = 1;
+            this.tableLayoutCommands.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutCommands.Controls.Add(this.chkListCommands, 0, 1);
+            this.tableLayoutCommands.Controls.Add(this.tableLayoutPanelCommandsButtons, 0, 0);
+            this.tableLayoutCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutCommands.Location = new System.Drawing.Point(7, 16);
+            this.tableLayoutCommands.Name = "tableLayoutCommands";
+            this.tableLayoutCommands.RowCount = 2;
+            this.tableLayoutCommands.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutCommands.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutCommands.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutCommands.Size = new System.Drawing.Size(210, 719);
+            this.tableLayoutCommands.TabIndex = 10;
             // 
             // chkListCommands
             // 
@@ -267,41 +279,103 @@
             this.chkListCommands.ContextMenuStrip = this.ctxMenuCommands;
             this.chkListCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkListCommands.FormattingEnabled = true;
-            this.chkListCommands.Location = new System.Drawing.Point(0, 113);
+            this.chkListCommands.Location = new System.Drawing.Point(0, 71);
             this.chkListCommands.Margin = new System.Windows.Forms.Padding(0);
             this.chkListCommands.Name = "chkListCommands";
-            this.chkListCommands.Size = new System.Drawing.Size(333, 1017);
+            this.chkListCommands.Size = new System.Drawing.Size(210, 648);
             this.chkListCommands.TabIndex = 5;
             // 
-            // tableLayoutServers
+            // tableLayoutPanelServersButtons
             // 
-            this.tableLayoutServers.ColumnCount = 1;
-            this.tableLayoutServers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutServers.Controls.Add(this.chkListServers, 0, 1);
-            this.tableLayoutServers.Controls.Add(this.btnLoadServersListFromFile, 0, 0);
-            this.tableLayoutServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutServers.Location = new System.Drawing.Point(7, 16);
-            this.tableLayoutServers.Name = "tableLayoutServers";
-            this.tableLayoutServers.RowCount = 2;
-            this.tableLayoutServers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutServers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutServers.Size = new System.Drawing.Size(263, 899);
-            this.tableLayoutServers.TabIndex = 6;
+            this.tableLayoutPanelServersButtons.ColumnCount = 3;
+            this.tableLayoutPanelServersButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanelServersButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanelServersButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanelServersButtons.Controls.Add(this.btnExportServers, 1, 0);
+            this.tableLayoutPanelServersButtons.Controls.Add(this.btnImportServers, 0, 0);
+            this.tableLayoutPanelServersButtons.Controls.Add(this.btnAddNewServer, 2, 0);
+            this.tableLayoutPanelServersButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelServersButtons.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelServersButtons.Name = "tableLayoutPanelServersButtons";
+            this.tableLayoutPanelServersButtons.RowCount = 1;
+            this.tableLayoutPanelServersButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelServersButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelServersButtons.Size = new System.Drawing.Size(204, 65);
+            this.tableLayoutPanelServersButtons.TabIndex = 6;
             // 
-            // tableLayoutCommands
+            // btnImportServers
             // 
-            this.tableLayoutCommands.ColumnCount = 1;
-            this.tableLayoutCommands.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutCommands.Controls.Add(this.chkListCommands, 0, 1);
-            this.tableLayoutCommands.Controls.Add(this.btnLoadCommandsFromFile, 0, 0);
-            this.tableLayoutCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutCommands.Location = new System.Drawing.Point(9, 20);
-            this.tableLayoutCommands.Name = "tableLayoutCommands";
-            this.tableLayoutCommands.RowCount = 2;
-            this.tableLayoutCommands.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutCommands.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutCommands.Size = new System.Drawing.Size(333, 1130);
-            this.tableLayoutCommands.TabIndex = 10;
+            this.btnImportServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnImportServers.Location = new System.Drawing.Point(8, 2);
+            this.btnImportServers.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnImportServers.Name = "btnImportServers";
+            this.btnImportServers.Size = new System.Drawing.Size(52, 61);
+            this.btnImportServers.TabIndex = 4;
+            this.btnImportServers.Text = "Import";
+            this.btnImportServers.UseVisualStyleBackColor = true;
+            this.btnImportServers.Click += new System.EventHandler(this.btnImportServers_Click);
+            // 
+            // btnExportServers
+            // 
+            this.btnExportServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExportServers.Location = new System.Drawing.Point(76, 2);
+            this.btnExportServers.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnExportServers.Name = "btnExportServers";
+            this.btnExportServers.Size = new System.Drawing.Size(52, 61);
+            this.btnExportServers.TabIndex = 5;
+            this.btnExportServers.Text = "Export";
+            this.btnExportServers.UseVisualStyleBackColor = true;
+            this.btnExportServers.Click += new System.EventHandler(this.btnExportServers_Click);
+            // 
+            // tableLayoutPanelCommandsButtons
+            // 
+            this.tableLayoutPanelCommandsButtons.ColumnCount = 3;
+            this.tableLayoutPanelCommandsButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanelCommandsButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanelCommandsButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanelCommandsButtons.Controls.Add(this.btnAddNewCommand, 2, 0);
+            this.tableLayoutPanelCommandsButtons.Controls.Add(this.btnExportCommand, 1, 0);
+            this.tableLayoutPanelCommandsButtons.Controls.Add(this.btnImportCommand, 0, 0);
+            this.tableLayoutPanelCommandsButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelCommandsButtons.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanelCommandsButtons.Name = "tableLayoutPanelCommandsButtons";
+            this.tableLayoutPanelCommandsButtons.RowCount = 1;
+            this.tableLayoutPanelCommandsButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelCommandsButtons.Size = new System.Drawing.Size(255, 81);
+            this.tableLayoutPanelCommandsButtons.TabIndex = 6;
+            // 
+            // btnImportCommand
+            // 
+            this.btnImportCommand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnImportCommand.Location = new System.Drawing.Point(3, 3);
+            this.btnImportCommand.Name = "btnImportCommand";
+            this.btnImportCommand.Size = new System.Drawing.Size(99, 94);
+            this.btnImportCommand.TabIndex = 0;
+            this.btnImportCommand.Text = "Import";
+            this.btnImportCommand.UseVisualStyleBackColor = true;
+            this.btnImportCommand.Click += new System.EventHandler(this.btnImportCommand_Click);
+            // 
+            // btnExportCommand
+            // 
+            this.btnExportCommand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExportCommand.Location = new System.Drawing.Point(110, 4);
+            this.btnExportCommand.Name = "btnExportCommand";
+            this.btnExportCommand.Size = new System.Drawing.Size(99, 94);
+            this.btnExportCommand.TabIndex = 1;
+            this.btnExportCommand.Text = "Export";
+            this.btnExportCommand.UseVisualStyleBackColor = true;
+            this.btnExportCommand.Click += new System.EventHandler(this.btnExportCommand_Click);
+            // 
+            // btnAddNewCommand
+            // 
+            this.btnAddNewCommand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddNewCommand.Location = new System.Drawing.Point(216, 4);
+            this.btnAddNewCommand.Name = "btnAddNewCommand";
+            this.btnAddNewCommand.Size = new System.Drawing.Size(99, 94);
+            this.btnAddNewCommand.TabIndex = 2;
+            this.btnAddNewCommand.Text = "Add";
+            this.btnAddNewCommand.UseVisualStyleBackColor = true;
+            this.btnAddNewCommand.Click += new System.EventHandler(this.btnAddNewCommand_Click);
             // 
             // SSHCommandSender
             // 
@@ -309,7 +383,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1172, 788);
             this.Controls.Add(this.tableLayoutMain);
-            this.Controls.Add(this.button1);
             this.Font = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -321,11 +394,11 @@
             this.groupBoxProccessOutputs.ResumeLayout(false);
             this.tableLayoutMain.ResumeLayout(false);
             this.groupBoxServers.ResumeLayout(false);
-            this.groupBoxCommands.ResumeLayout(false);
             this.tableLayoutServers.ResumeLayout(false);
-            this.tableLayoutServers.PerformLayout();
+            this.groupBoxCommands.ResumeLayout(false);
             this.tableLayoutCommands.ResumeLayout(false);
-            this.tableLayoutCommands.PerformLayout();
+            this.tableLayoutPanelServersButtons.ResumeLayout(false);
+            this.tableLayoutPanelCommandsButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -333,12 +406,10 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabSshOutputs;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnRunCommands;
-        private System.Windows.Forms.Button btnLoadServersListFromFile;
+        private System.Windows.Forms.Button btnAddNewServer;
         private System.Windows.Forms.ProgressBar progressBarRunningTasks;
         private System.Windows.Forms.GroupBox groupBoxProccessOutputs;
-        private System.Windows.Forms.Button btnLoadCommandsFromFile;
         private System.Windows.Forms.ContextMenuStrip ctxMenuServers;
         private System.Windows.Forms.ToolStripMenuItem menuRemoveSelectedServers;
         private System.Windows.Forms.ContextMenuStrip ctxMenuCommands;
@@ -352,6 +423,13 @@
         private System.Windows.Forms.CheckedListBox chkListCommands;
         private System.Windows.Forms.TableLayoutPanel tableLayoutServers;
         private System.Windows.Forms.TableLayoutPanel tableLayoutCommands;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelServersButtons;
+        private System.Windows.Forms.Button btnExportServers;
+        private System.Windows.Forms.Button btnImportServers;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelCommandsButtons;
+        private System.Windows.Forms.Button btnAddNewCommand;
+        private System.Windows.Forms.Button btnExportCommand;
+        private System.Windows.Forms.Button btnImportCommand;
     }
 }
 

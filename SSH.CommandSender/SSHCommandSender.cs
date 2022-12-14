@@ -66,7 +66,9 @@ namespace SSH.CommandSender
 
         }
 
-        private void btnLoadServersListFromFile_Click(object sender, EventArgs e)
+
+
+        private void btnImportServers_Click(object sender, EventArgs e)
         {
             var serversFromJsonFile = this.ReturnObjectFromFileDialog<SshServerDetails>();
             if (serversFromJsonFile != null && serversFromJsonFile.Count > 0)
@@ -77,7 +79,17 @@ namespace SSH.CommandSender
             }
         }
 
-        private void btnLoadCommandsFromFile_Click(object sender, EventArgs e)
+        private void btnExportServers_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddNewServer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImportCommand_Click(object sender, EventArgs e)
         {
             var commandsFromJsonFile = this.ReturnObjectFromFileDialog<SshCommandDetails>();
             if (commandsFromJsonFile != null && commandsFromJsonFile.Count > 0)
@@ -87,6 +99,18 @@ namespace SSH.CommandSender
                 BindCommandsCheckbox();
             }
         }
+
+        private void btnExportCommand_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddNewCommand_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
         private void menuRemoveSelectedServers_Click(object sender, EventArgs e)
@@ -344,7 +368,7 @@ namespace SSH.CommandSender
 
         private void SetUIAccordingToProgrammState()
         {
-            btnLoadServersListFromFile.Enabled = !this._taskRunning;
+            btnAddNewServer.Enabled = !this._taskRunning;
 
             if (this._taskRunning)
             {
@@ -381,5 +405,7 @@ namespace SSH.CommandSender
             }
 
         }
+
+        
     }
 }
