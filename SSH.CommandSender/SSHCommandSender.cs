@@ -87,7 +87,18 @@ namespace SSH.CommandSender
         private void SetUIAccordingToProgrammState()
         {
             btnLoadServersListFromFile.Enabled = !this._taskRunning;
-            btnRunCommands.Text = _taskRunning ? "Cancel Tasks!" : "RUN";
+
+            if (this._taskRunning)
+            {
+                btnRunCommands.Text = "Cancel Tasks!";
+                btnRunCommands.BackColor = Color.DarkSalmon;
+            }
+            else
+            {
+                btnRunCommands.Text = "RUN";
+                btnRunCommands.BackColor = Color.PaleGreen;
+            }
+            
         }
 
         private void btnRunCommands_Click(object sender, EventArgs e)
