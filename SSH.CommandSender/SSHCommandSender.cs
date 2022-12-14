@@ -35,71 +35,6 @@ namespace SSH.CommandSender
 
         }
 
-        private void BindServersCheckbox(bool forceSelectAll = true)
-        {
-            this.chkListServers.DataSource = null;
-            this.chkListServers.DisplayMember = "Name";
-            this.chkListServers.ValueMember = "Ip";
-            this.chkListServers.DataSource = this._allServers;
-
-            this.chkListServers.DisplayMember = "Name";
-            this.chkListServers.ValueMember = "Ip";
-            if (forceSelectAll)
-            {
-                for (var i = 0; i < this.chkListServers.Items.Count; i++)
-                {
-                    this.chkListServers.SetItemChecked(i, true);
-                }
-            }
-
-        }
-
-        private void BindCommandsCheckbox(bool forceSelectAll = true)
-        {
-            this.chkListCommands.DataSource = null;
-            this.chkListCommands.DisplayMember = "Description";
-            this.chkListCommands.ValueMember = "Command";
-            this.chkListCommands.DataSource = this._allCommands;
-            this.chkListCommands.DisplayMember = "Description";
-            this.chkListCommands.ValueMember = "Command";
-
-            if (forceSelectAll)
-            {
-                for (var i = 0; i < this.chkListCommands.Items.Count; i++)
-                {
-                    this.chkListCommands.SetItemChecked(i, true);
-                }
-            }
-        }
-
-
-        private TabPage CreateEmptyTabWithListView(string tabName)
-        {
-            var result = new TabPage(tabName);
-            result.BorderStyle = BorderStyle.Fixed3D;
-            var listBox = new ListBox();
-            listBox.Dock = DockStyle.Fill;
-            result.Controls.Add(listBox);
-
-            return result;
-        }
-
-        private void SetUIAccordingToProgrammState()
-        {
-            btnLoadServersListFromFile.Enabled = !this._taskRunning;
-
-            if (this._taskRunning)
-            {
-                btnRunCommands.Text = "Cancel Tasks!";
-                btnRunCommands.BackColor = Color.DarkSalmon;
-            }
-            else
-            {
-                btnRunCommands.Text = "RUN";
-                btnRunCommands.BackColor = Color.PaleGreen;
-            }
-            
-        }
 
         private void btnRunCommands_Click(object sender, EventArgs e)
         {
@@ -131,9 +66,62 @@ namespace SSH.CommandSender
 
         }
 
-        private bool ValidateServersAndCommandsSelected()
+        private void btnLoadServersListFromFile_Click(object sender, EventArgs e)
         {
-            return chkListServers.CheckedItems.Count > 0 && chkListCommands.CheckedItems.Count > 0;
+            var serversFromJsonFile = this.ReturnObjectFromFileDialog<SshServerDetails>();
+            if (serversFromJsonFile != null && serversFromJsonFile.Count > 0)
+            {
+                this._allServers.AddRange(serversFromJsonFile);
+
+                BindServersCheckbox();
+            }
+        }
+
+        private void btnLoadCommandsFromFile_Click(object sender, EventArgs e)
+        {
+            var commandsFromJsonFile = this.ReturnObjectFromFileDialog<SshCommandDetails>();
+            if (commandsFromJsonFile != null && commandsFromJsonFile.Count > 0)
+            {
+                this._allCommands.AddRange(commandsFromJsonFile);
+
+                BindCommandsCheckbox();
+            }
+        }
+
+
+        private void menuRemoveSelectedServers_Click(object sender, EventArgs e)
+        {
+            foreach (var checkedItem in this.chkListServers.CheckedItems.Cast<SshServerDetails>().ToList())
+            {
+                this._allServers.Remove(checkedItem);
+            }
+
+            BindServersCheckbox(false);
+        }
+
+        private void menuRemoveSelectedCommands_Click(object sender, EventArgs e)
+        {
+            foreach (var checkedItem in this.chkListCommands.CheckedItems.Cast<SshCommandDetails>().ToList())
+            {
+                this._allCommands.Remove(checkedItem);
+            }
+
+            BindCommandsCheckbox(false);
+        }
+
+        private void menuSaveOutputsToFile_Click(object sender, EventArgs e)
+        {
+            var outputLog = GenerateOutputsLog();
+
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text files|*.txt|All files|*.*";
+            saveFileDialog.Title = "Save Outputs To File";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllText(saveFileDialog.FileName, outputLog);
+            }
         }
 
         private void RunTasks()
@@ -219,15 +207,15 @@ namespace SSH.CommandSender
                             }
 
                             this.Invoke(new Action(() => { this.progressBarRunningTasks.PerformStep(); }));
+
+                            page.Invoke(new Action(() => { page.Text = server.Name + "-DONE!"; }));
                         }
                         catch (Exception exception)
                         {
                             WriteLogThreadSafety(page, "Exception while running commands: \n" + exception.Message);
 
-                        }
-                        finally
-                        {
-                            page.Invoke(new Action(() => { page.Text = server.Name + "-DONE!"; }));
+                            page.Invoke(new Action(() => { page.Text = server.Name + "-ERROR!"; }));
+
                         }
 
                     }
@@ -262,46 +250,58 @@ namespace SSH.CommandSender
             });
         }
 
-        private void WriteLogThreadSafety(TabPage tabPage, string text)
+        private void BindCommandsCheckbox(bool forceSelectAll = true)
         {
-            foreach (var textEntry in text.Split('\n'))
-            {
+            this.chkListCommands.DataSource = null;
+            this.chkListCommands.DisplayMember = "Description";
+            this.chkListCommands.ValueMember = "Command";
+            this.chkListCommands.DataSource = this._allCommands;
+            this.chkListCommands.DisplayMember = "Description";
+            this.chkListCommands.ValueMember = "Command";
 
-                tabPage.Invoke(new Action(() =>
+            if (forceSelectAll)
+            {
+                for (var i = 0; i < this.chkListCommands.Items.Count; i++)
                 {
-                    (tabPage.Controls[0] as System.Windows.Forms.ListBox).Items.Add($"[{FormatTime(DateTime.UtcNow)}] {textEntry}");
-                }));
+                    this.chkListCommands.SetItemChecked(i, true);
+                }
             }
-
         }
 
-        private string FormatTime(DateTime time)
+        private void BindServersCheckbox(bool forceSelectAll = true)
         {
-            return time.ToString("dd/MM/yyyy HH:mm:ss");
-        }
+            this.chkListServers.DataSource = null;
+            this.chkListServers.DisplayMember = "Name";
+            this.chkListServers.ValueMember = "Ip";
+            this.chkListServers.DataSource = this._allServers;
 
-        private void btnLoadServersListFromFile_Click(object sender, EventArgs e)
-        {
-            var serversFromJsonFile = this.ReturnObjectFromFileDialog<SshServerDetails>();
-            if (serversFromJsonFile != null && serversFromJsonFile.Count > 0)
+            this.chkListServers.DisplayMember = "Name";
+            this.chkListServers.ValueMember = "Ip";
+            if (forceSelectAll)
             {
-                this._allServers.AddRange(serversFromJsonFile);
-
-                BindServersCheckbox();
+                for (var i = 0; i < this.chkListServers.Items.Count; i++)
+                {
+                    this.chkListServers.SetItemChecked(i, true);
+                }
             }
+
         }
 
-        private void btnLoadCommandsFromFile_Click(object sender, EventArgs e)
+        private string GenerateOutputsLog()
         {
-            var commandsFromJsonFile = this.ReturnObjectFromFileDialog<SshCommandDetails>();
-            if (commandsFromJsonFile != null && commandsFromJsonFile.Count > 0)
+            var sb = new StringBuilder();
+
+            foreach (TabPage tabPage in this.tabSshOutputs.TabPages)
             {
-                this._allCommands.AddRange(commandsFromJsonFile);
+                sb.Append($"\n===================================================START {tabPage.Text}===================================================================\n");
+                var listBox = (tabPage.Controls[0] as ListBox);
+                sb.Append(string.Join("\n",listBox.Items.Cast<string>()));
 
-                BindCommandsCheckbox();
+                sb.Append($"\n===================================================END {tabPage.Text}=====================================================================\n");
             }
-        }
 
+            return sb.ToString();
+        }
 
         private List<T> ReturnObjectFromFileDialog<T>()
         {
@@ -331,55 +331,55 @@ namespace SSH.CommandSender
             return result;
         }
 
-        private void menuRemoveSelectedServers_Click(object sender, EventArgs e)
+        private TabPage CreateEmptyTabWithListView(string tabName)
         {
-            foreach (var checkedItem in this.chkListServers.CheckedItems.Cast<SshServerDetails>().ToList())
-            {
-                this._allServers.Remove(checkedItem);
-            }
+            var result = new TabPage(tabName);
+            result.BorderStyle = BorderStyle.Fixed3D;
+            var listBox = new ListBox();
+            listBox.Dock = DockStyle.Fill;
+            result.Controls.Add(listBox);
 
-            BindServersCheckbox(false);
+            return result;
         }
 
-        private void menuRemoveSelectedCommands_Click(object sender, EventArgs e)
+        private void SetUIAccordingToProgrammState()
         {
-            foreach (var checkedItem in this.chkListCommands.CheckedItems.Cast<SshCommandDetails>().ToList())
-            {
-                this._allCommands.Remove(checkedItem);
-            }
+            btnLoadServersListFromFile.Enabled = !this._taskRunning;
 
-            BindCommandsCheckbox(false);
+            if (this._taskRunning)
+            {
+                btnRunCommands.Text = "Cancel Tasks!";
+                btnRunCommands.BackColor = Color.DarkSalmon;
+            }
+            else
+            {
+                btnRunCommands.Text = "RUN";
+                btnRunCommands.BackColor = Color.PaleGreen;
+            }
+            
         }
 
-        private void menuSaveOutputsToFile_Click(object sender, EventArgs e)
+        private string FormatTime(DateTime time)
         {
-            var outputLog = GenerateOutputsLog();
-
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text files|*.txt|All files|*.*";
-            saveFileDialog.Title = "Save Outputs To File";
-            saveFileDialog.ShowDialog();
-
-            if (saveFileDialog.FileName != "")
-            {
-                File.WriteAllText(saveFileDialog.FileName, outputLog);
-            }
+            return time.ToString("dd/MM/yyyy HH:mm:ss");
         }
 
-        private string GenerateOutputsLog()
+        private bool ValidateServersAndCommandsSelected()
         {
-            var sb = new StringBuilder();
+            return chkListServers.CheckedItems.Count > 0 && chkListCommands.CheckedItems.Count > 0;
+        }
 
-            foreach (TabPage tabPage in this.tabSshOutputs.TabPages)
+        private void WriteLogThreadSafety(TabPage tabPage, string text)
+        {
+            foreach (var textEntry in text.Split('\n'))
             {
-                sb.Append($"\n===================================================START {tabPage.Text}===================================================================\n");
-                var listBox = (tabPage.Controls[0] as ListBox);
-                sb.Append(string.Join("\n",listBox.Items.Cast<string>()));
 
-                sb.Append($"\n===================================================END {tabPage.Text}=====================================================================\n");
+                tabPage.Invoke(new Action(() =>
+                {
+                    (tabPage.Controls[0] as System.Windows.Forms.ListBox).Items.Add($"[{FormatTime(DateTime.UtcNow)}] {textEntry}");
+                }));
             }
 
-            return sb.ToString();
         }
     }
 }
