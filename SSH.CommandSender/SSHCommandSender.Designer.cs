@@ -111,10 +111,10 @@
             // btnAddNewServer
             // 
             this.btnAddNewServer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddNewServer.Location = new System.Drawing.Point(144, 2);
-            this.btnAddNewServer.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnAddNewServer.Location = new System.Drawing.Point(170, 0);
+            this.btnAddNewServer.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddNewServer.Name = "btnAddNewServer";
-            this.btnAddNewServer.Size = new System.Drawing.Size(52, 61);
+            this.btnAddNewServer.Size = new System.Drawing.Size(85, 81);
             this.btnAddNewServer.TabIndex = 3;
             this.btnAddNewServer.Text = "Add";
             this.btnAddNewServer.UseVisualStyleBackColor = true;
@@ -306,10 +306,10 @@
             // btnImportServers
             // 
             this.btnImportServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnImportServers.Location = new System.Drawing.Point(8, 2);
-            this.btnImportServers.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnImportServers.Location = new System.Drawing.Point(0, 0);
+            this.btnImportServers.Margin = new System.Windows.Forms.Padding(0);
             this.btnImportServers.Name = "btnImportServers";
-            this.btnImportServers.Size = new System.Drawing.Size(52, 61);
+            this.btnImportServers.Size = new System.Drawing.Size(85, 81);
             this.btnImportServers.TabIndex = 4;
             this.btnImportServers.Text = "Import";
             this.btnImportServers.UseVisualStyleBackColor = true;
@@ -318,10 +318,10 @@
             // btnExportServers
             // 
             this.btnExportServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExportServers.Location = new System.Drawing.Point(76, 2);
-            this.btnExportServers.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
+            this.btnExportServers.Location = new System.Drawing.Point(85, 0);
+            this.btnExportServers.Margin = new System.Windows.Forms.Padding(0);
             this.btnExportServers.Name = "btnExportServers";
-            this.btnExportServers.Size = new System.Drawing.Size(52, 61);
+            this.btnExportServers.Size = new System.Drawing.Size(85, 81);
             this.btnExportServers.TabIndex = 5;
             this.btnExportServers.Text = "Export";
             this.btnExportServers.UseVisualStyleBackColor = true;
@@ -347,9 +347,10 @@
             // btnImportCommand
             // 
             this.btnImportCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnImportCommand.Location = new System.Drawing.Point(3, 3);
+            this.btnImportCommand.Location = new System.Drawing.Point(0, 0);
+            this.btnImportCommand.Margin = new System.Windows.Forms.Padding(0);
             this.btnImportCommand.Name = "btnImportCommand";
-            this.btnImportCommand.Size = new System.Drawing.Size(99, 94);
+            this.btnImportCommand.Size = new System.Drawing.Size(106, 101);
             this.btnImportCommand.TabIndex = 0;
             this.btnImportCommand.Text = "Import";
             this.btnImportCommand.UseVisualStyleBackColor = true;
@@ -358,9 +359,10 @@
             // btnExportCommand
             // 
             this.btnExportCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExportCommand.Location = new System.Drawing.Point(110, 4);
+            this.btnExportCommand.Location = new System.Drawing.Point(106, 0);
+            this.btnExportCommand.Margin = new System.Windows.Forms.Padding(0);
             this.btnExportCommand.Name = "btnExportCommand";
-            this.btnExportCommand.Size = new System.Drawing.Size(99, 94);
+            this.btnExportCommand.Size = new System.Drawing.Size(106, 101);
             this.btnExportCommand.TabIndex = 1;
             this.btnExportCommand.Text = "Export";
             this.btnExportCommand.UseVisualStyleBackColor = true;
@@ -369,9 +371,10 @@
             // btnAddNewCommand
             // 
             this.btnAddNewCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddNewCommand.Location = new System.Drawing.Point(216, 4);
+            this.btnAddNewCommand.Location = new System.Drawing.Point(213, 0);
+            this.btnAddNewCommand.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddNewCommand.Name = "btnAddNewCommand";
-            this.btnAddNewCommand.Size = new System.Drawing.Size(99, 94);
+            this.btnAddNewCommand.Size = new System.Drawing.Size(106, 101);
             this.btnAddNewCommand.TabIndex = 2;
             this.btnAddNewCommand.Text = "Add";
             this.btnAddNewCommand.UseVisualStyleBackColor = true;
