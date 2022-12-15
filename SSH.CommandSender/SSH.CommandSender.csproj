@@ -114,6 +114,7 @@
     <Content Include="Assets\Button-Play-icon.png" />
     <Content Include="Assets\icons8-ssh-32.ico" />
     <Content Include="Assets\icons8-ssh-32.png" />
+    <Content Include="Assets\ssh_command_sender.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -231,12 +231,13 @@ namespace SSH.CommandSender
                     {
                         page.Text = server.Name + "-RUNNING!";
                     }));
-                    using (var client = new SshClient(server.Host, server.Port, server.Username, server.Password))
+                    try
                     {
-                        WriteLogThreadSafety(page, $"Trying to connect to {server.Host}:{server.Port}");
-
-                        try
+                        using (var client = new SshClient(server.Host, server.Port, server.Username, server.Password))
                         {
+                            WriteLogThreadSafety(page, $"Trying to connect to {server.Host}:{server.Port}");
+
+
                             if (_taskRunning)
                             {
                                 client.Connect();
@@ -281,14 +282,15 @@ namespace SSH.CommandSender
                             this.Invoke(new Action(() => { this.progressBarRunningTasks.PerformStep(); }));
 
                             page.Invoke(new Action(() => { page.Text = server.Name + "-DONE!"; }));
-                        }
-                        catch (Exception exception)
-                        {
-                            WriteLogThreadSafety(page, "Exception while running commands: \n" + exception.Message);
 
-                            page.Invoke(new Action(() => { page.Text = server.Name + "-ERROR!"; }));
 
                         }
+                    }
+                    catch (Exception exception)
+                    {
+                        WriteLogThreadSafety(page, "Exception while running commands: \n" + exception.Message);
+
+                        page.Invoke(new Action(() => { page.Text = server.Name + "-ERROR!"; }));
 
                     }
                 }));
