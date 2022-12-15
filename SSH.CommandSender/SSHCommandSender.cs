@@ -16,6 +16,7 @@ using SSH.CommandSender.Domain;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Newtonsoft.Json;
+using SSH.CommandSender.Dialogs;
 
 namespace SSH.CommandSender
 {
@@ -81,7 +82,15 @@ namespace SSH.CommandSender
 
         private void btnExportServers_Click(object sender, EventArgs e)
         {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Json files|*.json|All files|*.*";
+            saveFileDialog.Title = "Save Servers To File";
+            saveFileDialog.ShowDialog();
 
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allServers, Formatting.Indented));
+            }
         }
 
         private void btnAddNewServer_Click(object sender, EventArgs e)
@@ -102,12 +111,33 @@ namespace SSH.CommandSender
 
         private void btnExportCommand_Click(object sender, EventArgs e)
         {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Json files|*.json|All files|*.*";
+            saveFileDialog.Title = "Save Commands To File";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allCommands, Formatting.Indented));
+            }
 
         }
 
         private void btnAddNewCommand_Click(object sender, EventArgs e)
         {
+            var commandEditorDialog = new CommandEditorDialog("Add New Command", new SshCommandDetails("Write the command description here...", "Write the command here..."));
+            var dialogResult = commandEditorDialog.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                var newCommand = commandEditorDialog.CommandDetails;
+                if (string.IsNullOrWhiteSpace(newCommand.Command) == false &&
+                    string.IsNullOrWhiteSpace(newCommand.Description) == false)
+                {
+                    this._allCommands.Add(newCommand);
 
+                    BindCommandsCheckbox(false);
+                }
+            }
         }
 
 
@@ -147,6 +177,7 @@ namespace SSH.CommandSender
                 File.WriteAllText(saveFileDialog.FileName, outputLog);
             }
         }
+
 
         private void RunTasks()
         {
@@ -191,7 +222,7 @@ namespace SSH.CommandSender
                     }));
                     using (var client = new SshClient(server.Ip, server.Username, server.Password))
                     {
-                        WriteLogThreadSafety(page, "Trying to connect");
+                        WriteLogThreadSafety(page, $"Trying to connect to {server.Ip}");
 
                         try
                         {
@@ -205,14 +236,20 @@ namespace SSH.CommandSender
 
                             foreach (var command in selectedCommands)
                             {
-                                WriteLogThreadSafety(page, "Running command: " + command.Description);
-
-                                if (_taskRunning)
+                                foreach (var commandRow in command.Command.Split('\n'))
                                 {
-                                    var runCommand = client.RunCommand(command.Command);
-                                    WriteLogThreadSafety(page,
-                                        $"Command: {command.Command}, Result: {runCommand.Result}");
+                                    if (string.IsNullOrWhiteSpace(commandRow) == false)
+                                    {
+                                        if (_taskRunning)
+                                        {
+                                            WriteLogThreadSafety(page, "Running command: " + commandRow);
+                                            var runCommand = client.RunCommand(commandRow);
+                                            WriteLogThreadSafety(page,
+                                                $"Command: {commandRow}, Result: {string.Concat(runCommand.Error, runCommand.Result)}");
+                                        }
+                                    }
                                 }
+
 
                                 this.Invoke(new Action(() => { this.progressBarRunningTasks.PerformStep(); }));
 
@@ -222,7 +259,7 @@ namespace SSH.CommandSender
 
                             WriteLogThreadSafety(page, "Disconnected");
 
-                      
+
 
                             if (_taskRunning == false)
                             {
@@ -319,7 +356,7 @@ namespace SSH.CommandSender
             {
                 sb.Append($"\n===================================================START {tabPage.Text}===================================================================\n");
                 var listBox = (tabPage.Controls[0] as ListBox);
-                sb.Append(string.Join("\n",listBox.Items.Cast<string>()));
+                sb.Append(string.Join("\n", listBox.Items.Cast<string>()));
 
                 sb.Append($"\n===================================================END {tabPage.Text}=====================================================================\n");
             }
@@ -347,7 +384,7 @@ namespace SSH.CommandSender
                             result.AddRange(JsonConvert.DeserializeObject<List<T>>(json));
                         }
                     }
-                  
+
                 }
             }
 
@@ -380,7 +417,7 @@ namespace SSH.CommandSender
                 btnRunCommands.Text = "RUN";
                 btnRunCommands.BackColor = Color.PaleGreen;
             }
-            
+
         }
 
         private string FormatTime(DateTime time)
@@ -406,6 +443,6 @@ namespace SSH.CommandSender
 
         }
 
-        
+
     }
 }

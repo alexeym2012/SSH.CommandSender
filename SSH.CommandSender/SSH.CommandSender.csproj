@@ -55,11 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dialogs\AddNewCommandDialog.cs">
+    <Compile Include="Dialogs\CommandEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\AddNewCommandDialog.Designer.cs">
-      <DependentUpon>AddNewCommandDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\CommandEditorDialog.Designer.cs">
+      <DependentUpon>CommandEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\SshCommandDetails.cs" />
     <Compile Include="Domain\SshServerDetails.cs" />
@@ -71,8 +71,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Dialogs\AddNewCommandDialog.resx">
-      <DependentUpon>AddNewCommandDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\CommandEditorDialog.resx">
+      <DependentUpon>CommandEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSHCommandSender.resx">
       <DependentUpon>SSHCommandSender.cs</DependentUpon>

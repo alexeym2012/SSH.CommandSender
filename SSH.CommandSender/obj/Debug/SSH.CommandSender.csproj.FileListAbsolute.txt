@@ -16,3 +16,4 @@ C:\Users\alexe\source\repos\SSH.CommandSender\SSH.CommandSender\obj\Debug\SSH.Co
 C:\Users\alexe\source\repos\SSH.CommandSender\SSH.CommandSender\obj\Debug\SSH.CommandSender.pdb
 C:\Users\alexe\source\repos\SSH.CommandSender\SSH.CommandSender\bin\Debug\Newtonsoft.Json.dll
 C:\Users\alexe\source\repos\SSH.CommandSender\SSH.CommandSender\bin\Debug\Newtonsoft.Json.xml
+C:\Users\alexe\source\repos\SSH.CommandSender\SSH.CommandSender\obj\Debug\SSH.CommandSender.Dialogs.CommandEditorDialog.resources
