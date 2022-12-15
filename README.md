@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/alexeym2012/SSH.CommandSender">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/alexeym2012/SSH.CommandSender/main/SSH.CommandSender/Assets/icons8-ssh-32.png" alt="Logo" width="80" height="80">
   </a>
 </div>
 
@@ -34,11 +34,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]]([https://example.com](https://github.com/alexeym2012/SSH.CommandSender))
 
-A simple app to send commands to multiple hosts via SSH protocol.
-Just create a list of hosts and the list of the commands and click "RUN".SSHSSH
-The commands will run in parrallel.
+<p>A simple app to send commands to multiple hosts via SSH protocol.</p>
+<p>Just create a list of hosts and the list of the commands and click "RUN".SSHSSH</p>
+<p>The commands will run in parrallel.</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -47,7 +47,7 @@ The commands will run in parrallel.
 ### Built With
 <p>*Microsoft Windows.Forms</p>
 <p>*SSH.Net by Renci</p>
-<p>*Newtonsoft.Json>/p>
+<p>*Newtonsoft.Json></p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,7 +120,7 @@ Project Link: [https://github.com/alexeym2012/SSH.CommandSender](https://github.
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://raw.githubusercontent.com/alexeym2012/SSH.CommandSender/main/SSH.CommandSender/Assets/ssh_command_sender.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
