@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SSH.CommandSender")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Developed by Alexey Murashkevich. email: alexeym.bpsys@gmail.com. Link to github: https://github.com/alexeym2012/SSH.CommandSender")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Open Source")]
 [assembly: AssemblyProduct("SSH.CommandSender")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCopyright("Copyright ©  2022 Alexey Murashkevich and others")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

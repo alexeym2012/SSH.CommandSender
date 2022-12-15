@@ -22,7 +22,7 @@ namespace SSH.CommandSender
 {
     public partial class SSHCommandSender : Form
     {
-        private List<SshServerDetails> _allServers = new List<SshServerDetails>();
+        private List<SshHostDetails> _allHosts = new List<SshHostDetails>();
         private List<SshCommandDetails> _allCommands = new List<SshCommandDetails>();
 
 
@@ -71,12 +71,12 @@ namespace SSH.CommandSender
 
         private void btnImportServers_Click(object sender, EventArgs e)
         {
-            var serversFromJsonFile = this.ReturnObjectFromFileDialog<SshServerDetails>();
+            var serversFromJsonFile = this.ReturnObjectFromFileDialog<SshHostDetails>();
             if (serversFromJsonFile != null && serversFromJsonFile.Count > 0)
             {
-                this._allServers.AddRange(serversFromJsonFile);
+                this._allHosts.AddRange(serversFromJsonFile);
 
-                BindServersCheckbox();
+                BindHostsCheckbox(false);
             }
         }
 
@@ -89,13 +89,27 @@ namespace SSH.CommandSender
 
             if (saveFileDialog.FileName != "")
             {
-                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allServers, Formatting.Indented));
+                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allHosts, Formatting.Indented));
             }
         }
 
         private void btnAddNewServer_Click(object sender, EventArgs e)
         {
+            var hostEditorDialog = new HostEditorDialog("Add New Host", new SshHostDetails("Write the host name here...", "Write the host address", string.Empty, string.Empty));
+            var dialogResult = hostEditorDialog.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                var newHost = hostEditorDialog.HostDetails;
+                if (string.IsNullOrWhiteSpace(newHost.Name) == false &&
+                    string.IsNullOrWhiteSpace(newHost.Host) == false &&
+                    string.IsNullOrWhiteSpace(newHost.Username) == false &&
+                    string.IsNullOrWhiteSpace(newHost.Password) == false && newHost.Port > 0)
+                {
+                    this._allHosts.Add(newHost);
 
+                    BindHostsCheckbox(false);
+                }
+            }
         }
 
         private void btnImportCommand_Click(object sender, EventArgs e)
@@ -105,7 +119,7 @@ namespace SSH.CommandSender
             {
                 this._allCommands.AddRange(commandsFromJsonFile);
 
-                BindCommandsCheckbox();
+                BindCommandsCheckbox(false);
             }
         }
 
@@ -145,12 +159,12 @@ namespace SSH.CommandSender
 
         private void menuRemoveSelectedServers_Click(object sender, EventArgs e)
         {
-            foreach (var checkedItem in this.chkListServers.CheckedItems.Cast<SshServerDetails>().ToList())
+            foreach (var checkedItem in this.chkListHosts.CheckedItems.Cast<SshHostDetails>().ToList())
             {
-                this._allServers.Remove(checkedItem);
+                this._allHosts.Remove(checkedItem);
             }
 
-            BindServersCheckbox(false);
+            BindHostsCheckbox(false);
         }
 
         private void menuRemoveSelectedCommands_Click(object sender, EventArgs e)
@@ -186,21 +200,19 @@ namespace SSH.CommandSender
             var runTasks = new List<Task>();
             this.tabSshOutputs.TabPages.Clear();
 
-
-
             var selectedCommands = new List<SshCommandDetails>();
-            var selectedServers = new List<SshServerDetails>();
+            var selectedServers = new List<SshHostDetails>();
 
             foreach (var checkedCommand in this.chkListCommands.CheckedItems)
             {
                 var selectedCommand = (checkedCommand as SshCommandDetails);
-                selectedCommands.AddRange(this._allCommands.FindAll(c => c.Command == selectedCommand.Command));
+                selectedCommands.Add(this._allCommands.FindLast(c => c.Command == selectedCommand.Command));
             }
 
-            foreach (var checkedServer in this.chkListServers.CheckedItems)
+            foreach (var checkedHost in this.chkListHosts.CheckedItems)
             {
-                var selectedServer = (checkedServer as SshServerDetails);
-                selectedServers.AddRange(this._allServers.FindAll(c => c.Ip == selectedServer.Ip));
+                var selectedHost = (checkedHost as SshHostDetails);
+                selectedServers.Add(this._allHosts.FindLast(c => c.Host == selectedHost.Host && c.Port == selectedHost.Port));
             }
 
 
@@ -215,14 +227,13 @@ namespace SSH.CommandSender
 
                 runTasks.Add(Task.Run(() =>
                 {
-
                     page.Invoke(new Action(() =>
                     {
                         page.Text = server.Name + "-RUNNING!";
                     }));
-                    using (var client = new SshClient(server.Ip, server.Username, server.Password))
+                    using (var client = new SshClient(server.Host, server.Port, server.Username, server.Password))
                     {
-                        WriteLogThreadSafety(page, $"Trying to connect to {server.Ip}");
+                        WriteLogThreadSafety(page, $"Trying to connect to {server.Host}:{server.Port}");
 
                         try
                         {
@@ -313,6 +324,17 @@ namespace SSH.CommandSender
 
         private void BindCommandsCheckbox(bool forceSelectAll = true)
         {
+
+            var checkedItemIndecencies = new HashSet<int>();
+
+            for (var i = 0; i < this.chkListCommands.Items.Count; i++)
+            {
+                if (this.chkListCommands.GetItemChecked(i))
+                {
+                    checkedItemIndecencies.Add(i);
+                }
+            }
+
             this.chkListCommands.DataSource = null;
             this.chkListCommands.DisplayMember = "Description";
             this.chkListCommands.ValueMember = "Command";
@@ -320,32 +342,44 @@ namespace SSH.CommandSender
             this.chkListCommands.DisplayMember = "Description";
             this.chkListCommands.ValueMember = "Command";
 
-            if (forceSelectAll)
+
+            for (var i = 0; i < this.chkListCommands.Items.Count; i++)
             {
-                for (var i = 0; i < this.chkListCommands.Items.Count; i++)
+                if (forceSelectAll || checkedItemIndecencies.Contains(i))
                 {
                     this.chkListCommands.SetItemChecked(i, true);
                 }
             }
+
         }
 
-        private void BindServersCheckbox(bool forceSelectAll = true)
+        private void BindHostsCheckbox(bool forceSelectAll = true)
         {
-            this.chkListServers.DataSource = null;
-            this.chkListServers.DisplayMember = "Name";
-            this.chkListServers.ValueMember = "Ip";
-            this.chkListServers.DataSource = this._allServers;
+            var checkedItemIndecencies = new HashSet<int>();
 
-            this.chkListServers.DisplayMember = "Name";
-            this.chkListServers.ValueMember = "Ip";
-            if (forceSelectAll)
+            for (var i = 0; i < this.chkListHosts.Items.Count; i++)
             {
-                for (var i = 0; i < this.chkListServers.Items.Count; i++)
+                if (this.chkListHosts.GetItemChecked(i))
                 {
-                    this.chkListServers.SetItemChecked(i, true);
+                    checkedItemIndecencies.Add(i);
                 }
             }
 
+            this.chkListHosts.DataSource = null;
+            this.chkListHosts.DisplayMember = "Name";
+            this.chkListHosts.ValueMember = "Host";
+            this.chkListHosts.DataSource = this._allHosts;
+
+            this.chkListHosts.DisplayMember = "Name";
+            this.chkListHosts.ValueMember = "Host";
+
+            for (var i = 0; i < this.chkListHosts.Items.Count; i++)
+            {
+                if (forceSelectAll || checkedItemIndecencies.Contains(i))
+                {
+                    this.chkListHosts.SetItemChecked(i, true);
+                }
+            }
         }
 
         private string GenerateOutputsLog()
@@ -427,7 +461,7 @@ namespace SSH.CommandSender
 
         private bool ValidateServersAndCommandsSelected()
         {
-            return chkListServers.CheckedItems.Count > 0 && chkListCommands.CheckedItems.Count > 0;
+            return chkListHosts.CheckedItems.Count > 0 && chkListCommands.CheckedItems.Count > 0;
         }
 
         private void WriteLogThreadSafety(TabPage tabPage, string text)

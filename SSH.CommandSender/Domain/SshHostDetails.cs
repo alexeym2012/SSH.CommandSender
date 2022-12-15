@@ -1,18 +1,22 @@
 ﻿namespace SSH.CommandSender.Domain
 {
-    public class SshServerDetails
+    public class SshHostDetails
     {
         public string Name { get;  set; }
-        public string Ip { get; set; }
+        public string Host { get; set; }
+        public ushort Port { get; }
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public SshServerDetails(string name, string ip, string username, string password)
+        public SshHostDetails(string name, string host,string username, string password, ushort port = 22)
         {
             Name = name;
-            Ip = ip;
+            Host = host;
+            Port = port;
             Username = username;
             Password = password;
         }
+
+
     }
 }

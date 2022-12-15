@@ -61,8 +61,14 @@
     <Compile Include="Dialogs\CommandEditorDialog.Designer.cs">
       <DependentUpon>CommandEditorDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\HostEditorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\HostEditorDialog.Designer.cs">
+      <DependentUpon>HostEditorDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Domain\SshCommandDetails.cs" />
-    <Compile Include="Domain\SshServerDetails.cs" />
+    <Compile Include="Domain\SshHostDetails.cs" />
     <Compile Include="SSHCommandSender.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Dialogs\CommandEditorDialog.resx">
       <DependentUpon>CommandEditorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\HostEditorDialog.resx">
+      <DependentUpon>HostEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSHCommandSender.resx">
       <DependentUpon>SSHCommandSender.cs</DependentUpon>
