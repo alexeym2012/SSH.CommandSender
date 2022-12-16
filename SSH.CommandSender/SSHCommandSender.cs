@@ -97,7 +97,7 @@ namespace SSH.CommandSender
 
         private void btnAddNewServer_Click(object sender, EventArgs e)
         {
-            var hostEditorDialog = new HostEditorDialog("Add New Host", new SshHostDetails("Write the host name here...", "Write the host address", string.Empty, string.Empty));
+            var hostEditorDialog = new HostEditorDialog("Add New Host", new SshHostDetails());
             var dialogResult = hostEditorDialog.ShowDialog(this);
             if (dialogResult == DialogResult.OK)
             {
@@ -110,6 +110,11 @@ namespace SSH.CommandSender
                     this._allHosts.Add(newHost);
 
                     BindHostsCheckbox(false);
+                }
+                else
+                {
+                    MessageBox.Show(this, "Failed to add a host. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
         }
@@ -141,7 +146,7 @@ namespace SSH.CommandSender
 
         private void btnAddNewCommand_Click(object sender, EventArgs e)
         {
-            var commandEditorDialog = new CommandEditorDialog("Add New Command", new SshCommandDetails("Write the command description here...", "Write the command here..."));
+            var commandEditorDialog = new CommandEditorDialog("Add New Command", new SshCommandDetails());
             var dialogResult = commandEditorDialog.ShowDialog(this);
             if (dialogResult == DialogResult.OK)
             {
@@ -152,6 +157,11 @@ namespace SSH.CommandSender
                     this._allCommands.Add(newCommand);
 
                     BindCommandsCheckbox(false);
+                }
+                else
+                {
+                    MessageBox.Show(this, "Failed to add a command. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
         }
