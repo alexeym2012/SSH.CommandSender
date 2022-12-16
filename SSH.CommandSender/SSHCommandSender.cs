@@ -256,13 +256,12 @@ namespace SSH.CommandSender
                                     {
                                         if (_taskRunning)
                                         {
-                                            var proggressReporter = new SshCommandProgressReporter((progress) =>
+                                            WriteLogThreadSafety(page, "Running command: " + commandRow);
+                                            client.CreateCommand(commandRow).ExecuteAsync((progress) =>
                                             {
                                                 WriteLogThreadSafety(page,
                                                     $"{progress.Line}");
-                                            });
-                                            WriteLogThreadSafety(page, "Running command: " + commandRow);
-                                            client.CreateCommand(commandRow).ExecuteAsync(proggressReporter, CancellationToken.None).Wait();
+                                            }, CancellationToken.None).Wait();
                                             
                                             //var runCommand = client.RunCommand(commandRow);
                                            
@@ -490,17 +489,4 @@ namespace SSH.CommandSender
 
     }
 
-    public class SshCommandProgressReporter : IProgress<SshScriptOutputLine>
-    {
-        private readonly Action<SshScriptOutputLine> _progressCallback;
-
-        public SshCommandProgressReporter(Action<SshScriptOutputLine> progressCallback)
-        {
-            _progressCallback = progressCallback;
-        }
-        public void Report(SshScriptOutputLine value)
-        {
-            this._progressCallback(value);
-        }
-    }
 }

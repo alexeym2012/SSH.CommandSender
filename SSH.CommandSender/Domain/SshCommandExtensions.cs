@@ -13,7 +13,7 @@ namespace SSH.CommandSender.Domain
     {
         public static async Task ExecuteAsync(
             this SshCommand sshCommand,
-            IProgress<SshScriptOutputLine> progress,
+            Action<SshScriptOutputLine> progress,
             CancellationToken cancellationToken)
         {
             var asyncResult = sshCommand.BeginExecute();
@@ -32,7 +32,7 @@ namespace SSH.CommandSender.Domain
             SshCommand sshCommand,
             IAsyncResult asyncResult,
             StreamReader streamReader,
-            IProgress<SshScriptOutputLine> progress,
+            Action<SshScriptOutputLine> progress,
             bool isError,
             CancellationToken cancellationToken)
         {
@@ -49,7 +49,7 @@ namespace SSH.CommandSender.Domain
 
                 if (!string.IsNullOrEmpty(stderrLine))
                 {
-                    progress.Report(new SshScriptOutputLine(
+                    progress(new SshScriptOutputLine(
                         line: stderrLine,
                         isErrorLine: isError));
                 }
