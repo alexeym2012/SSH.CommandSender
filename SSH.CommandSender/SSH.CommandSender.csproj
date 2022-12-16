@@ -68,6 +68,7 @@
       <DependentUpon>HostEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\SshCommandDetails.cs" />
+    <Compile Include="Domain\SshCommandExtensions.cs" />
     <Compile Include="Domain\SshHostDetails.cs" />
     <Compile Include="SSHCommandSender.cs">
       <SubType>Form</SubType>

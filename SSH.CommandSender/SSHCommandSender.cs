@@ -16,7 +16,9 @@ using SSH.CommandSender.Domain;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Newtonsoft.Json;
+using Renci.SshNet.Async;
 using SSH.CommandSender.Dialogs;
+using SSH.CommandSender.Domain;
 
 namespace SSH.CommandSender
 {
@@ -245,7 +247,7 @@ namespace SSH.CommandSender
 
                             this.Invoke(new Action(() => { this.progressBarRunningTasks.PerformStep(); }));
                             WriteLogThreadSafety(page, "Connected");
-
+                          
                             foreach (var command in selectedCommands)
                             {
                                 foreach (var commandRow in command.Command.Split('\n'))
@@ -254,10 +256,16 @@ namespace SSH.CommandSender
                                     {
                                         if (_taskRunning)
                                         {
+                                            var proggressReporter = new SshCommandProgressReporter((progress) =>
+                                            {
+                                                WriteLogThreadSafety(page,
+                                                    $"{progress.Line}");
+                                            });
                                             WriteLogThreadSafety(page, "Running command: " + commandRow);
-                                            var runCommand = client.RunCommand(commandRow);
-                                            WriteLogThreadSafety(page,
-                                                $"Command: {commandRow}, Result: {string.Concat(runCommand.Error, runCommand.Result)}");
+                                            client.CreateCommand(commandRow).ExecuteAsync(proggressReporter, CancellationToken.None).Wait();
+                                            
+                                            //var runCommand = client.RunCommand(commandRow);
+                                           
                                         }
                                     }
                                 }
@@ -480,5 +488,19 @@ namespace SSH.CommandSender
         }
 
 
+    }
+
+    public class SshCommandProgressReporter : IProgress<SshScriptOutputLine>
+    {
+        private readonly Action<SshScriptOutputLine> _progressCallback;
+
+        public SshCommandProgressReporter(Action<SshScriptOutputLine> progressCallback)
+        {
+            _progressCallback = progressCallback;
+        }
+        public void Report(SshScriptOutputLine value)
+        {
+            this._progressCallback(value);
+        }
     }
 }
