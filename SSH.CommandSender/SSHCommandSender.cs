@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +15,6 @@ using System.Windows.Forms.VisualStyles;
 using Newtonsoft.Json.Linq;
 using SSH.CommandSender.Domain;
 using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Newtonsoft.Json;
 using Renci.SshNet.Async;
 using SSH.CommandSender.Dialogs;
@@ -270,7 +270,7 @@ namespace SSH.CommandSender
                                             client.CreateCommand(commandRow).ExecuteAsync((progress) =>
                                             {
                                                 WriteLogThreadSafety(page,
-                                                    $"{progress.Line}");
+                                                    $"{progress.Line}", progress.IsErrorLine);
                                             }, CancellationToken.None).Wait();
                                             
                                             //var runCommand = client.RunCommand(commandRow);
@@ -408,8 +408,8 @@ namespace SSH.CommandSender
             foreach (TabPage tabPage in this.tabSshOutputs.TabPages)
             {
                 sb.Append($"\n===================================================START {tabPage.Text}===================================================================\n");
-                var listBox = (tabPage.Controls[0] as ListBox);
-                sb.Append(string.Join("\n", listBox.Items.Cast<string>()));
+                var textBox = (tabPage.Controls[0] as RichTextBox);
+                sb.Append(string.Join("\n", textBox.Text));
 
                 sb.Append($"\n===================================================END {tabPage.Text}=====================================================================\n");
             }
@@ -449,9 +449,14 @@ namespace SSH.CommandSender
         {
             var result = new TabPage(tabName);
             result.BorderStyle = BorderStyle.Fixed3D;
-            var listBox = new ListBox();
-            listBox.Dock = DockStyle.Fill;
-            result.Controls.Add(listBox);
+            var textBox = new System.Windows.Forms.RichTextBox();
+            textBox.Dock = DockStyle.Fill;
+            textBox.Multiline = true;
+            textBox.ReadOnly = true;
+            textBox.BackColor = Color.Black;
+            textBox.ForeColor = Color.White;
+            textBox.BorderStyle = BorderStyle.None;
+            result.Controls.Add(textBox);
 
             return result;
         }
@@ -483,14 +488,21 @@ namespace SSH.CommandSender
             return chkListHosts.CheckedItems.Count > 0 && chkListCommands.CheckedItems.Count > 0;
         }
 
-        private void WriteLogThreadSafety(TabPage tabPage, string text)
+        private void WriteLogThreadSafety(TabPage tabPage, string text, bool errorLine = false)
         {
             foreach (var textEntry in text.Split('\n'))
             {
-
                 tabPage.Invoke(new Action(() =>
                 {
-                    (tabPage.Controls[0] as System.Windows.Forms.ListBox).Items.Add($"[{FormatTime(DateTime.UtcNow)}] {textEntry}");
+                    var outputTextBox = (tabPage.Controls[0] as System.Windows.Forms.RichTextBox);
+                    if (errorLine)
+                    {
+                        outputTextBox.SelectionColor = Color.Red;
+                    }
+                    outputTextBox.AppendText($"[{FormatTime(DateTime.UtcNow)}] {textEntry}");
+                    outputTextBox.AppendText(Environment.NewLine);
+
+                    outputTextBox.SelectionColor = Color.White;
                 }));
             }
 

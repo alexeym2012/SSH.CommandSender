@@ -85,7 +85,9 @@
             this.txtCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCommand.BackColor = System.Drawing.Color.Black;
             this.txtCommand.Font = new System.Drawing.Font("Ubuntu Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommand.ForeColor = System.Drawing.Color.White;
             this.txtCommand.Location = new System.Drawing.Point(100, 99);
             this.txtCommand.Margin = new System.Windows.Forms.Padding(0, 0, 26, 0);
             this.txtCommand.Multiline = true;
