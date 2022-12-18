@@ -35,6 +35,8 @@ namespace SSH.CommandSender
         public SSHCommandSender()
         {
             InitializeComponent();
+
+            this.Text = this.Text + $" {GetAssemblyVersion()}";
         }
 
 
@@ -590,6 +592,13 @@ namespace SSH.CommandSender
                 }));
             }
 
+        }
+
+        private string GetAssemblyVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion;
         }
 
 
