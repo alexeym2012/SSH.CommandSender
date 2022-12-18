@@ -106,7 +106,7 @@ namespace SSH.CommandSender
             {
                 this._allCommands.AddRange(commandsFromJsonFile);
 
-                BindCommandsCheckbox(false);
+                BindCommandsCheckbox();
             }
         }
 
@@ -149,7 +149,7 @@ namespace SSH.CommandSender
                 this._allCommands.Remove(checkedItem);
             }
 
-            BindCommandsCheckbox(false);
+            BindCommandsCheckbox();
         }
 
         private void menuSaveOutputsToFile_Click(object sender, EventArgs e)
@@ -181,7 +181,7 @@ namespace SSH.CommandSender
             if (selectedCommand != null)
             {
                 _allCommands.Remove(selectedCommand);
-                BindCommandsCheckbox(false);
+                BindCommandsCheckbox();
             }
         }
 
@@ -260,7 +260,7 @@ namespace SSH.CommandSender
                     }
 
 
-                    BindCommandsCheckbox(false);
+                    BindCommandsCheckbox();
                 }
                 else
                 {
@@ -404,7 +404,7 @@ namespace SSH.CommandSender
             });
         }
 
-        private void BindCommandsCheckbox(bool forceSelectAll = true)
+        private void BindCommandsCheckbox(bool? forceSelection = null)
         {
 
             var checkedItemIndecencies = new HashSet<int>();
@@ -427,15 +427,21 @@ namespace SSH.CommandSender
 
             for (var i = 0; i < this.chkListCommands.Items.Count; i++)
             {
-                if (forceSelectAll || checkedItemIndecencies.Contains(i))
+                if (checkedItemIndecencies.Contains(i))
                 {
                     this.chkListCommands.SetItemChecked(i, true);
+                }
+
+                if (forceSelection.HasValue)
+                {
+                    this.chkListCommands.SetItemChecked(i, forceSelection.Value);
+
                 }
             }
 
         }
 
-        private void BindHostsCheckbox(bool forceSelectAll = true)
+        private void BindHostsCheckbox(bool? forceSelection = null)
         {
             var checkedItemIndecencies = new HashSet<int>();
 
@@ -457,9 +463,14 @@ namespace SSH.CommandSender
 
             for (var i = 0; i < this.chkListHosts.Items.Count; i++)
             {
-                if (forceSelectAll || checkedItemIndecencies.Contains(i))
+                if (checkedItemIndecencies.Contains(i))
                 {
                     this.chkListHosts.SetItemChecked(i, true);
+                }
+
+                if (forceSelection.HasValue)
+                {
+                    this.chkListHosts.SetItemChecked(i, forceSelection.Value);
                 }
             }
         }
@@ -494,10 +505,20 @@ namespace SSH.CommandSender
                 {
                     if (openFileDialog.FileNames != null && openFileDialog.FileNames.Length > 0)
                     {
+                      
                         foreach (var fileName in openFileDialog.FileNames)
                         {
-                            var json = File.ReadAllText(fileName);
-                            result.AddRange(JsonConvert.DeserializeObject<List<T>>(json));
+                            try
+                            {
+                                var json = File.ReadAllText(fileName);
+                                result.AddRange(JsonConvert.DeserializeObject<List<T>>(json));
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(this, e.Message, $"Failed to import {fileName}", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            }
+                           
                         }
                     }
 
@@ -571,7 +592,27 @@ namespace SSH.CommandSender
 
         }
 
-        
+
+        private void menuSelectAllCommands_Click(object sender, EventArgs e)
+        {
+            BindCommandsCheckbox(true);
+        }
+
+        private void menuUnselectAllCommands_Click(object sender, EventArgs e)
+        {
+            BindCommandsCheckbox(false);
+
+        }
+
+        private void menuUnselectAllHosts_Click(object sender, EventArgs e)
+        {
+            BindHostsCheckbox(false);
+        }
+
+        private void menuSelectAllHosts_Click(object sender, EventArgs e)
+        {
+            BindHostsCheckbox(true);
+        }
     }
 
 }
