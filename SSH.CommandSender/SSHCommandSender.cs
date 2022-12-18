@@ -16,7 +16,6 @@ using Newtonsoft.Json.Linq;
 using SSH.CommandSender.Domain;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json;
-using Renci.SshNet.Async;
 using SSH.CommandSender.Dialogs;
 using SSH.CommandSender.Domain;
 using System.Reflection;

@@ -2,5 +2,5 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/SSH.CommandSender/bin/Release
-/SSH.CommandSender/obj/Release
+/SSH.CommandSender/bin/
+/SSH.CommandSender/obj/
