@@ -34,12 +34,18 @@
             this.ctxMenuProccessOutputs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuSaveOutputsToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRunCommands = new System.Windows.Forms.Button();
-            this.btnAddNewServer = new System.Windows.Forms.Button();
+            this.btnAddNewHost = new System.Windows.Forms.Button();
             this.progressBarRunningTasks = new System.Windows.Forms.ProgressBar();
-            this.ctxMenuServers = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuRemoveSelectedServers = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctxMenuHosts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItemEditHost = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemRemoveHost = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuRemoveAllHosts = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxMenuCommands = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuRemoveSelectedCommands = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemRemoveSelectedCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuRemoveAll = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxProccessOutputs = new System.Windows.Forms.GroupBox();
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxServers = new System.Windows.Forms.GroupBox();
@@ -56,7 +62,7 @@
             this.btnExportCommand = new System.Windows.Forms.Button();
             this.btnImportCommand = new System.Windows.Forms.Button();
             this.ctxMenuProccessOutputs.SuspendLayout();
-            this.ctxMenuServers.SuspendLayout();
+            this.ctxMenuHosts.SuspendLayout();
             this.ctxMenuCommands.SuspendLayout();
             this.groupBoxProccessOutputs.SuspendLayout();
             this.tableLayoutMain.SuspendLayout();
@@ -100,10 +106,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRunCommands.BackColor = System.Drawing.Color.PaleGreen;
             this.btnRunCommands.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRunCommands.Location = new System.Drawing.Point(1049, 2);
+            this.btnRunCommands.Location = new System.Drawing.Point(1019, 2);
             this.btnRunCommands.Margin = new System.Windows.Forms.Padding(2);
             this.btnRunCommands.Name = "btnRunCommands";
-            this.btnRunCommands.Size = new System.Drawing.Size(151, 83);
+            this.btnRunCommands.Size = new System.Drawing.Size(151, 66);
             this.btnRunCommands.TabIndex = 2;
             this.btnRunCommands.Text = "Run";
             this.btnRunCommands.UseVisualStyleBackColor = false;
@@ -111,15 +117,15 @@
             // 
             // btnAddNewServer
             // 
-            this.btnAddNewServer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddNewServer.Location = new System.Drawing.Point(154, 0);
-            this.btnAddNewServer.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAddNewServer.Name = "btnAddNewServer";
-            this.btnAddNewServer.Size = new System.Drawing.Size(77, 65);
-            this.btnAddNewServer.TabIndex = 3;
-            this.btnAddNewServer.Text = "Add";
-            this.btnAddNewServer.UseVisualStyleBackColor = true;
-            this.btnAddNewServer.Click += new System.EventHandler(this.btnAddNewServer_Click);
+            this.btnAddNewHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddNewHost.Location = new System.Drawing.Point(154, 0);
+            this.btnAddNewHost.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddNewHost.Name = "btnAddNewHost";
+            this.btnAddNewHost.Size = new System.Drawing.Size(77, 65);
+            this.btnAddNewHost.TabIndex = 3;
+            this.btnAddNewHost.Text = "Add";
+            this.btnAddNewHost.UseVisualStyleBackColor = true;
+            this.btnAddNewHost.Click += new System.EventHandler(this.btnAddNewHost_Click);
             // 
             // progressBarRunningTasks
             // 
@@ -134,35 +140,80 @@
             this.progressBarRunningTasks.TabIndex = 4;
             this.progressBarRunningTasks.Value = 1;
             // 
-            // ctxMenuServers
+            // ctxMenuHosts
             // 
-            this.ctxMenuServers.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.ctxMenuServers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuRemoveSelectedServers});
-            this.ctxMenuServers.Name = "ctxMenuServers";
-            this.ctxMenuServers.Size = new System.Drawing.Size(194, 28);
+            this.ctxMenuHosts.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ctxMenuHosts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemEditHost,
+            this.menuItemRemoveHost,
+            this.toolStripSeparator2,
+            this.menuRemoveAllHosts});
+            this.ctxMenuHosts.Name = "ctxMenuServers";
+            this.ctxMenuHosts.Size = new System.Drawing.Size(155, 82);
             // 
-            // menuRemoveSelectedServers
+            // menuItemEditHost
             // 
-            this.menuRemoveSelectedServers.Name = "menuRemoveSelectedServers";
-            this.menuRemoveSelectedServers.Size = new System.Drawing.Size(193, 24);
-            this.menuRemoveSelectedServers.Text = "Remove Selected";
-            this.menuRemoveSelectedServers.Click += new System.EventHandler(this.menuRemoveSelectedServers_Click);
+            this.menuItemEditHost.Name = "menuItemEditHost";
+            this.menuItemEditHost.Size = new System.Drawing.Size(154, 24);
+            this.menuItemEditHost.Text = "Edit";
+            this.menuItemEditHost.Click += new System.EventHandler(this.menuItemEditHost_Click);
+            // 
+            // menuItemRemoveHost
+            // 
+            this.menuItemRemoveHost.Name = "menuItemRemoveHost";
+            this.menuItemRemoveHost.Size = new System.Drawing.Size(154, 24);
+            this.menuItemRemoveHost.Text = "Remove";
+            this.menuItemRemoveHost.Click += new System.EventHandler(this.menuItemRemoveHost_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(151, 6);
+            // 
+            // menuRemoveAllHosts
+            // 
+            this.menuRemoveAllHosts.Name = "menuRemoveAllHosts";
+            this.menuRemoveAllHosts.Size = new System.Drawing.Size(154, 24);
+            this.menuRemoveAllHosts.Text = "Remove All";
+            this.menuRemoveAllHosts.Click += new System.EventHandler(this.menuRemoveAllHosts_Click);
             // 
             // ctxMenuCommands
             // 
             this.ctxMenuCommands.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.ctxMenuCommands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuRemoveSelectedCommands});
+            this.menuEditCommand,
+            this.menuItemRemoveSelectedCommand,
+            this.toolStripSeparator1,
+            this.menuRemoveAll});
             this.ctxMenuCommands.Name = "ctxMenuServers";
-            this.ctxMenuCommands.Size = new System.Drawing.Size(194, 28);
+            this.ctxMenuCommands.Size = new System.Drawing.Size(155, 82);
             // 
-            // menuRemoveSelectedCommands
+            // menuEditCommand
             // 
-            this.menuRemoveSelectedCommands.Name = "menuRemoveSelectedCommands";
-            this.menuRemoveSelectedCommands.Size = new System.Drawing.Size(193, 24);
-            this.menuRemoveSelectedCommands.Text = "Remove Selected";
-            this.menuRemoveSelectedCommands.Click += new System.EventHandler(this.menuRemoveSelectedCommands_Click);
+            this.menuEditCommand.AccessibleName = "Edit";
+            this.menuEditCommand.Name = "menuEditCommand";
+            this.menuEditCommand.Size = new System.Drawing.Size(154, 24);
+            this.menuEditCommand.Text = "Edit";
+            this.menuEditCommand.Click += new System.EventHandler(this.menuEditCommand_Click);
+            // 
+            // menuItemRemoveSelectedCommand
+            // 
+            this.menuItemRemoveSelectedCommand.Name = "menuItemRemoveSelectedCommand";
+            this.menuItemRemoveSelectedCommand.Size = new System.Drawing.Size(154, 24);
+            this.menuItemRemoveSelectedCommand.Text = "Remove";
+            this.menuItemRemoveSelectedCommand.Click += new System.EventHandler(this.menuItemRemoveSelectedCommand_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // menuRemoveAll
+            // 
+            this.menuRemoveAll.Name = "menuRemoveAll";
+            this.menuRemoveAll.Size = new System.Drawing.Size(154, 24);
+            this.menuRemoveAll.Text = "Remove All";
+            this.menuRemoveAll.Click += new System.EventHandler(this.menuRemoveAllCommands_Click);
             // 
             // groupBoxProccessOutputs
             // 
@@ -234,7 +285,7 @@
             // chkListHosts
             // 
             this.chkListHosts.CheckOnClick = true;
-            this.chkListHosts.ContextMenuStrip = this.ctxMenuServers;
+            this.chkListHosts.ContextMenuStrip = this.ctxMenuHosts;
             this.chkListHosts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkListHosts.FormattingEnabled = true;
             this.chkListHosts.Location = new System.Drawing.Point(0, 71);
@@ -242,6 +293,7 @@
             this.chkListHosts.Name = "chkListHosts";
             this.chkListHosts.Size = new System.Drawing.Size(237, 647);
             this.chkListHosts.TabIndex = 5;
+            this.chkListHosts.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkListBox_MouseDown);
             // 
             // tableLayoutPanelServersButtons
             // 
@@ -251,13 +303,13 @@
             this.tableLayoutPanelServersButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanelServersButtons.Controls.Add(this.btnExportServers, 1, 0);
             this.tableLayoutPanelServersButtons.Controls.Add(this.btnImportServers, 0, 0);
-            this.tableLayoutPanelServersButtons.Controls.Add(this.btnAddNewServer, 2, 0);
+            this.tableLayoutPanelServersButtons.Controls.Add(this.btnAddNewHost, 2, 0);
             this.tableLayoutPanelServersButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelServersButtons.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelServersButtons.Name = "tableLayoutPanelServersButtons";
             this.tableLayoutPanelServersButtons.RowCount = 1;
             this.tableLayoutPanelServersButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelServersButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66F));
+            this.tableLayoutPanelServersButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanelServersButtons.Size = new System.Drawing.Size(231, 65);
             this.tableLayoutPanelServersButtons.TabIndex = 6;
             // 
@@ -327,6 +379,7 @@
             this.chkListCommands.Name = "chkListCommands";
             this.chkListCommands.Size = new System.Drawing.Size(203, 647);
             this.chkListCommands.TabIndex = 5;
+            this.chkListCommands.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkListBox_MouseDown);
             // 
             // tableLayoutPanelCommandsButtons
             // 
@@ -393,7 +446,7 @@
             this.Name = "SSHCommandSender";
             this.Text = "SSH.CommandSender";
             this.ctxMenuProccessOutputs.ResumeLayout(false);
-            this.ctxMenuServers.ResumeLayout(false);
+            this.ctxMenuHosts.ResumeLayout(false);
             this.ctxMenuCommands.ResumeLayout(false);
             this.groupBoxProccessOutputs.ResumeLayout(false);
             this.tableLayoutMain.ResumeLayout(false);
@@ -411,13 +464,13 @@
 
         private System.Windows.Forms.TabControl tabSshOutputs;
         private System.Windows.Forms.Button btnRunCommands;
-        private System.Windows.Forms.Button btnAddNewServer;
+        private System.Windows.Forms.Button btnAddNewHost;
         private System.Windows.Forms.ProgressBar progressBarRunningTasks;
         private System.Windows.Forms.GroupBox groupBoxProccessOutputs;
-        private System.Windows.Forms.ContextMenuStrip ctxMenuServers;
-        private System.Windows.Forms.ToolStripMenuItem menuRemoveSelectedServers;
+        private System.Windows.Forms.ContextMenuStrip ctxMenuHosts;
+        private System.Windows.Forms.ToolStripMenuItem menuRemoveAllHosts;
         private System.Windows.Forms.ContextMenuStrip ctxMenuCommands;
-        private System.Windows.Forms.ToolStripMenuItem menuRemoveSelectedCommands;
+        private System.Windows.Forms.ToolStripMenuItem menuRemoveAll;
         private System.Windows.Forms.ContextMenuStrip ctxMenuProccessOutputs;
         private System.Windows.Forms.ToolStripMenuItem menuSaveOutputsToFile;
         private System.Windows.Forms.TableLayoutPanel tableLayoutMain;
@@ -434,6 +487,12 @@
         private System.Windows.Forms.Button btnAddNewCommand;
         private System.Windows.Forms.Button btnExportCommand;
         private System.Windows.Forms.Button btnImportCommand;
+        private System.Windows.Forms.ToolStripMenuItem menuEditCommand;
+        private System.Windows.Forms.ToolStripMenuItem menuItemRemoveSelectedCommand;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem menuItemEditHost;
+        private System.Windows.Forms.ToolStripMenuItem menuItemRemoveHost;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

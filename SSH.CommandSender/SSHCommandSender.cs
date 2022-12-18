@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using Renci.SshNet.Async;
 using SSH.CommandSender.Dialogs;
 using SSH.CommandSender.Domain;
+using System.Reflection;
 
 namespace SSH.CommandSender
 {
@@ -35,7 +36,6 @@ namespace SSH.CommandSender
         public SSHCommandSender()
         {
             InitializeComponent();
-
         }
 
 
@@ -95,28 +95,9 @@ namespace SSH.CommandSender
             }
         }
 
-        private void btnAddNewServer_Click(object sender, EventArgs e)
+        private void btnAddNewHost_Click(object sender, EventArgs e)
         {
-            var hostEditorDialog = new HostEditorDialog("Add New Host", new SshHostDetails());
-            var dialogResult = hostEditorDialog.ShowDialog(this);
-            if (dialogResult == DialogResult.OK)
-            {
-                var newHost = hostEditorDialog.HostDetails;
-                if (string.IsNullOrWhiteSpace(newHost.Name) == false &&
-                    string.IsNullOrWhiteSpace(newHost.Host) == false &&
-                    string.IsNullOrWhiteSpace(newHost.Username) == false &&
-                    string.IsNullOrWhiteSpace(newHost.Password) == false && newHost.Port > 0)
-                {
-                    this._allHosts.Add(newHost);
-
-                    BindHostsCheckbox(false);
-                }
-                else
-                {
-                    MessageBox.Show(this, "Failed to add a host. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
+            ShowHostEditorDialog("Add New Host", new SshHostDetails(), true);
         }
 
         private void btnImportCommand_Click(object sender, EventArgs e)
@@ -146,32 +127,15 @@ namespace SSH.CommandSender
 
         private void btnAddNewCommand_Click(object sender, EventArgs e)
         {
-            var commandEditorDialog = new CommandEditorDialog("Add New Command", new SshCommandDetails());
-            var dialogResult = commandEditorDialog.ShowDialog(this);
-            if (dialogResult == DialogResult.OK)
-            {
-                var newCommand = commandEditorDialog.CommandDetails;
-                if (string.IsNullOrWhiteSpace(newCommand.Command) == false &&
-                    string.IsNullOrWhiteSpace(newCommand.Description) == false)
-                {
-                    this._allCommands.Add(newCommand);
-
-                    BindCommandsCheckbox(false);
-                }
-                else
-                {
-                    MessageBox.Show(this, "Failed to add a command. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
+            ShowCommandEditorDialog("Add New Command", new SshCommandDetails(), true);
         }
 
 
 
 
-        private void menuRemoveSelectedServers_Click(object sender, EventArgs e)
+        private void menuRemoveAllHosts_Click(object sender, EventArgs e)
         {
-            foreach (var checkedItem in this.chkListHosts.CheckedItems.Cast<SshHostDetails>().ToList())
+            foreach (var checkedItem in this.chkListHosts.Items.Cast<SshHostDetails>().ToList())
             {
                 this._allHosts.Remove(checkedItem);
             }
@@ -179,9 +143,9 @@ namespace SSH.CommandSender
             BindHostsCheckbox(false);
         }
 
-        private void menuRemoveSelectedCommands_Click(object sender, EventArgs e)
+        private void menuRemoveAllCommands_Click(object sender, EventArgs e)
         {
-            foreach (var checkedItem in this.chkListCommands.CheckedItems.Cast<SshCommandDetails>().ToList())
+            foreach (var checkedItem in this.chkListCommands.Items.Cast<SshCommandDetails>().ToList())
             {
                 this._allCommands.Remove(checkedItem);
             }
@@ -203,7 +167,109 @@ namespace SSH.CommandSender
                 File.WriteAllText(saveFileDialog.FileName, outputLog);
             }
         }
+        private void menuEditCommand_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = chkListCommands.SelectedItem as SshCommandDetails;
+            if (selectedCommand != null)
+            {
+                ShowCommandEditorDialog($"Edit {selectedCommand.Command}", selectedCommand, false);
+            }
+        }
 
+        private void menuItemRemoveSelectedCommand_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = chkListCommands.SelectedItem as SshCommandDetails;
+            if (selectedCommand != null)
+            {
+                _allCommands.Remove(selectedCommand);
+                BindCommandsCheckbox(false);
+            }
+        }
+
+        private void menuItemEditHost_Click(object sender, EventArgs e)
+        {
+            var selectedHost = chkListHosts.SelectedItem as SshHostDetails;
+            if (selectedHost != null)
+            {
+                ShowHostEditorDialog($"Edit {selectedHost.Name}", selectedHost, false);
+            }
+        }
+
+        private void menuItemRemoveHost_Click(object sender, EventArgs e)
+        {
+            var selectedHost = chkListHosts.SelectedItem as SshHostDetails;
+            if (selectedHost != null)
+            {
+                _allHosts.Remove(selectedHost);
+                BindHostsCheckbox(false);
+            }
+        }
+
+        private void checkListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var relevantControl = sender as CheckedListBox;
+                var index = relevantControl.IndexFromPoint(e.X, e.Y);
+                if (index != ListBox.NoMatches)
+                {
+                    relevantControl.SelectedIndex = index;
+                }
+            }
+        }
+
+        private void ShowHostEditorDialog(string windowTitle, SshHostDetails host, bool appedToList)
+        {
+            var hostEditorDialog = new HostEditorDialog(windowTitle, host);
+            var dialogResult = hostEditorDialog.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                var relevantHost = hostEditorDialog.HostDetails;
+                if (string.IsNullOrWhiteSpace(relevantHost.Name) == false &&
+                    string.IsNullOrWhiteSpace(relevantHost.Host) == false &&
+                    string.IsNullOrWhiteSpace(relevantHost.Username) == false  && relevantHost.Port > 0)
+                {
+                    if (appedToList)
+                    {
+                        this._allHosts.Add(relevantHost);
+                    }
+                    
+
+                    BindHostsCheckbox(false);
+                }
+                else
+                {
+                    MessageBox.Show(this, "Failed to edit the host. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ShowCommandEditorDialog(string windowTitle, SshCommandDetails command, bool appedToList)
+        {
+            var commandEditorDialog = new CommandEditorDialog(windowTitle, command);
+            var dialogResult = commandEditorDialog.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                var relevantCommand = commandEditorDialog.CommandDetails;
+                if (string.IsNullOrWhiteSpace(relevantCommand.Command) == false &&
+                    string.IsNullOrWhiteSpace(relevantCommand.Description) == false)
+                {
+                    if (appedToList)
+                    {
+                        this._allCommands.Add(relevantCommand);
+                    }
+
+
+                    BindCommandsCheckbox(false);
+                }
+                else
+                {
+                    MessageBox.Show(this, "Failed to edit the command. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+        }
 
         private void RunTasks()
         {
@@ -257,7 +323,7 @@ namespace SSH.CommandSender
 
                             this.Invoke(new Action(() => { this.progressBarRunningTasks.PerformStep(); }));
                             WriteLogThreadSafety(page, "Connected");
-                          
+
                             foreach (var command in selectedCommands)
                             {
                                 foreach (var commandRow in command.Command.Split('\n'))
@@ -272,9 +338,9 @@ namespace SSH.CommandSender
                                                 WriteLogThreadSafety(page,
                                                     $"{progress.Line}", progress.IsErrorLine);
                                             }, CancellationToken.None).Wait();
-                                            
+
                                             //var runCommand = client.RunCommand(commandRow);
-                                           
+
                                         }
                                     }
                                 }
@@ -319,24 +385,22 @@ namespace SSH.CommandSender
 
                 this.Invoke(new Action(() =>
                 {
-
+                   
                     if (_taskRunning)
                     {
+                        _taskRunning = false;
+                        SetUIAccordingToProgrammState();
                         MessageBox.Show(this, "Finished running tasks!", "Success!", MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
                     else
                     {
+                        _taskRunning = false;
+                        SetUIAccordingToProgrammState();
                         MessageBox.Show(this, "Cancelled running tasks!", "Cancelled!", MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
                     }
                 }));
-
-
-
-                _taskRunning = false;
-                this.Invoke(new Action(SetUIAccordingToProgrammState));
-
 
             });
         }
@@ -463,7 +527,7 @@ namespace SSH.CommandSender
 
         private void SetUIAccordingToProgrammState()
         {
-            btnAddNewServer.Enabled = !this._taskRunning;
+            btnAddNewHost.Enabled = !this._taskRunning;
 
             if (this._taskRunning)
             {
@@ -508,7 +572,7 @@ namespace SSH.CommandSender
 
         }
 
-
+        
     }
 
 }
