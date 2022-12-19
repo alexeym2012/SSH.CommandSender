@@ -218,6 +218,98 @@ namespace SSH.CommandSender
                 }
             }
         }
+        private void menuSelectAllCommands_Click(object sender, EventArgs e)
+        {
+            BindCommandsCheckbox(true);
+        }
+
+        private void menuUnselectAllCommands_Click(object sender, EventArgs e)
+        {
+            BindCommandsCheckbox(false);
+
+        }
+
+        private void menuUnselectAllHosts_Click(object sender, EventArgs e)
+        {
+            BindHostsCheckbox(false);
+        }
+
+        private void menuSelectAllHosts_Click(object sender, EventArgs e)
+        {
+            BindHostsCheckbox(true);
+        }
+
+        private void menuRemoveUnselectedHosts_Click(object sender, EventArgs e)
+        {
+            var checkedHosts = new HashSet<SshHostDetails>(chkListHosts.CheckedItems.OfType<SshHostDetails>().ToList());
+            _allHosts.RemoveAll(h => checkedHosts.Contains(h) == false);
+            BindHostsCheckbox();
+        }
+
+        private void menuRemoveUnselectedCommands_Click(object sender, EventArgs e)
+        {
+            var checkedCommands = new HashSet<SshCommandDetails>(chkListCommands.CheckedItems.OfType<SshCommandDetails>().ToList());
+            _allCommands.RemoveAll(c => checkedCommands.Contains(c) == false);
+            BindCommandsCheckbox();
+        }
+        private void menuMoveCommandDown_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = chkListCommands.SelectedItem as SshCommandDetails;
+            var currentCommandIndex = _allCommands.IndexOf(selectedCommand);
+            if (currentCommandIndex < (_allCommands.Count - 1))
+            {
+                var newIndex = ++currentCommandIndex;
+                _allCommands.Remove(selectedCommand);
+                _allCommands.Insert( newIndex, selectedCommand);
+                chkListCommands.SelectedIndex = newIndex;
+
+                BindCommandsCheckbox();
+            }
+        }
+
+        private void menuMoveCommandUp_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = chkListCommands.SelectedItem as SshCommandDetails;
+            var currentCommandIndex = _allCommands.IndexOf(selectedCommand);
+            if (currentCommandIndex > 0)
+            {
+                var newIndex = --currentCommandIndex;
+                _allCommands.Remove(selectedCommand);
+                _allCommands.Insert(newIndex, selectedCommand);
+                chkListCommands.SelectedIndex = newIndex;
+
+                BindCommandsCheckbox();
+            }
+        }
+        private void menuMoveHostDown_Click(object sender, EventArgs e)
+        {
+            var selectedHost = chkListHosts.SelectedItem as SshHostDetails;
+            var currentHostIndex = _allHosts.IndexOf(selectedHost);
+            if (currentHostIndex < (_allHosts.Count - 1))
+            {
+                var newIndex = ++currentHostIndex;
+                _allHosts.Remove(selectedHost);
+                _allHosts.Insert(newIndex, selectedHost);
+                chkListHosts.SelectedIndex = newIndex;
+
+                BindHostsCheckbox();
+            }
+        }
+
+        private void menuMoveHostUp_Click(object sender, EventArgs e)
+        {
+            var selectedHost = chkListHosts.SelectedItem as SshHostDetails;
+            var currentHostIndex = _allHosts.IndexOf(selectedHost);
+            if (currentHostIndex > 0)
+            {
+                var newIndex = --currentHostIndex;
+                _allHosts.Remove(selectedHost);
+                _allHosts.Insert(newIndex, selectedHost);
+                chkListHosts.SelectedIndex = newIndex;
+
+                BindHostsCheckbox();
+            }
+        }
 
         private void ShowHostEditorDialog(string windowTitle, SshHostDetails host, bool appedToList)
         {
@@ -542,6 +634,7 @@ namespace SSH.CommandSender
             textBox.BackColor = Color.Black;
             textBox.ForeColor = Color.White;
             textBox.BorderStyle = BorderStyle.None;
+            textBox.ContextMenuStrip = ctxMenuProccessOutputs;
             result.Controls.Add(textBox);
 
             return result;
@@ -602,26 +695,6 @@ namespace SSH.CommandSender
         }
 
 
-        private void menuSelectAllCommands_Click(object sender, EventArgs e)
-        {
-            BindCommandsCheckbox(true);
-        }
-
-        private void menuUnselectAllCommands_Click(object sender, EventArgs e)
-        {
-            BindCommandsCheckbox(false);
-
-        }
-
-        private void menuUnselectAllHosts_Click(object sender, EventArgs e)
-        {
-            BindHostsCheckbox(false);
-        }
-
-        private void menuSelectAllHosts_Click(object sender, EventArgs e)
-        {
-            BindHostsCheckbox(true);
-        }
     }
 
 }

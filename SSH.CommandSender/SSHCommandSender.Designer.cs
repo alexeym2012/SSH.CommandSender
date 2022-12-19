@@ -40,12 +40,20 @@
             this.menuItemEditHost = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemRemoveHost = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuSelectAllHosts = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuUnselectAllHosts = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveAllHosts = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRemoveUnselectedHosts = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxMenuCommands = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuEditCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemRemoveSelectedCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuSelectAllCommands = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuUnselectAllCommands = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRemoveUnselectedCommands = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxProccessOutputs = new System.Windows.Forms.GroupBox();
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxServers = new System.Windows.Forms.GroupBox();
@@ -61,10 +69,12 @@
             this.btnAddNewCommand = new System.Windows.Forms.Button();
             this.btnExportCommand = new System.Windows.Forms.Button();
             this.btnImportCommand = new System.Windows.Forms.Button();
-            this.menuSelectAllCommands = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuUnselectAllCommands = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSelectAllHosts = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuUnselectAllHosts = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuMoveCommandUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuMoveCommandDown = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuMoveHostUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuMoveHostDown = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxMenuProccessOutputs.SuspendLayout();
             this.ctxMenuHosts.SuspendLayout();
             this.ctxMenuCommands.SuspendLayout();
@@ -148,80 +158,142 @@
             // 
             this.ctxMenuHosts.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.ctxMenuHosts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuMoveHostUp,
+            this.menuMoveHostDown,
+            this.toolStripSeparator6,
             this.menuItemEditHost,
             this.menuItemRemoveHost,
             this.toolStripSeparator2,
             this.menuSelectAllHosts,
             this.menuUnselectAllHosts,
-            this.menuRemoveAllHosts});
+            this.toolStripSeparator3,
+            this.menuRemoveAllHosts,
+            this.menuRemoveUnselectedHosts});
             this.ctxMenuHosts.Name = "ctxMenuServers";
-            this.ctxMenuHosts.Size = new System.Drawing.Size(157, 130);
+            this.ctxMenuHosts.Size = new System.Drawing.Size(211, 242);
             // 
             // menuItemEditHost
             // 
             this.menuItemEditHost.Name = "menuItemEditHost";
-            this.menuItemEditHost.Size = new System.Drawing.Size(156, 24);
+            this.menuItemEditHost.Size = new System.Drawing.Size(210, 24);
             this.menuItemEditHost.Text = "Edit";
             this.menuItemEditHost.Click += new System.EventHandler(this.menuItemEditHost_Click);
             // 
             // menuItemRemoveHost
             // 
             this.menuItemRemoveHost.Name = "menuItemRemoveHost";
-            this.menuItemRemoveHost.Size = new System.Drawing.Size(156, 24);
+            this.menuItemRemoveHost.Size = new System.Drawing.Size(210, 24);
             this.menuItemRemoveHost.Text = "Remove";
             this.menuItemRemoveHost.Click += new System.EventHandler(this.menuItemRemoveHost_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
+            // menuSelectAllHosts
+            // 
+            this.menuSelectAllHosts.Name = "menuSelectAllHosts";
+            this.menuSelectAllHosts.Size = new System.Drawing.Size(210, 24);
+            this.menuSelectAllHosts.Text = "Select All";
+            this.menuSelectAllHosts.Click += new System.EventHandler(this.menuSelectAllHosts_Click);
+            // 
+            // menuUnselectAllHosts
+            // 
+            this.menuUnselectAllHosts.Name = "menuUnselectAllHosts";
+            this.menuUnselectAllHosts.Size = new System.Drawing.Size(210, 24);
+            this.menuUnselectAllHosts.Text = "Unselect All";
+            this.menuUnselectAllHosts.Click += new System.EventHandler(this.menuUnselectAllHosts_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(207, 6);
             // 
             // menuRemoveAllHosts
             // 
             this.menuRemoveAllHosts.Name = "menuRemoveAllHosts";
-            this.menuRemoveAllHosts.Size = new System.Drawing.Size(156, 24);
+            this.menuRemoveAllHosts.Size = new System.Drawing.Size(210, 24);
             this.menuRemoveAllHosts.Text = "Remove All";
             this.menuRemoveAllHosts.Click += new System.EventHandler(this.menuRemoveAllHosts_Click);
+            // 
+            // menuRemoveUnselectedHosts
+            // 
+            this.menuRemoveUnselectedHosts.Name = "menuRemoveUnselectedHosts";
+            this.menuRemoveUnselectedHosts.Size = new System.Drawing.Size(210, 24);
+            this.menuRemoveUnselectedHosts.Text = "Remove Unselected";
+            this.menuRemoveUnselectedHosts.Click += new System.EventHandler(this.menuRemoveUnselectedHosts_Click);
             // 
             // ctxMenuCommands
             // 
             this.ctxMenuCommands.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.ctxMenuCommands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuMoveCommandUp,
+            this.menuMoveCommandDown,
+            this.toolStripSeparator5,
             this.menuEditCommand,
             this.menuItemRemoveSelectedCommand,
             this.toolStripSeparator1,
             this.menuSelectAllCommands,
             this.menuUnselectAllCommands,
-            this.menuRemoveAll});
+            this.toolStripSeparator4,
+            this.menuRemoveAll,
+            this.menuRemoveUnselectedCommands});
             this.ctxMenuCommands.Name = "ctxMenuServers";
-            this.ctxMenuCommands.Size = new System.Drawing.Size(211, 158);
+            this.ctxMenuCommands.Size = new System.Drawing.Size(210, 214);
             // 
             // menuEditCommand
             // 
             this.menuEditCommand.AccessibleName = "Edit";
             this.menuEditCommand.Name = "menuEditCommand";
-            this.menuEditCommand.Size = new System.Drawing.Size(210, 24);
+            this.menuEditCommand.Size = new System.Drawing.Size(209, 24);
             this.menuEditCommand.Text = "Edit";
             this.menuEditCommand.Click += new System.EventHandler(this.menuEditCommand_Click);
             // 
             // menuItemRemoveSelectedCommand
             // 
             this.menuItemRemoveSelectedCommand.Name = "menuItemRemoveSelectedCommand";
-            this.menuItemRemoveSelectedCommand.Size = new System.Drawing.Size(210, 24);
+            this.menuItemRemoveSelectedCommand.Size = new System.Drawing.Size(209, 24);
             this.menuItemRemoveSelectedCommand.Text = "Remove";
             this.menuItemRemoveSelectedCommand.Click += new System.EventHandler(this.menuItemRemoveSelectedCommand_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
+            // 
+            // menuSelectAllCommands
+            // 
+            this.menuSelectAllCommands.Name = "menuSelectAllCommands";
+            this.menuSelectAllCommands.Size = new System.Drawing.Size(209, 24);
+            this.menuSelectAllCommands.Text = "Select All";
+            this.menuSelectAllCommands.Click += new System.EventHandler(this.menuSelectAllCommands_Click);
+            // 
+            // menuUnselectAllCommands
+            // 
+            this.menuUnselectAllCommands.Name = "menuUnselectAllCommands";
+            this.menuUnselectAllCommands.Size = new System.Drawing.Size(209, 24);
+            this.menuUnselectAllCommands.Text = "Unselect All";
+            this.menuUnselectAllCommands.Click += new System.EventHandler(this.menuUnselectAllCommands_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(206, 6);
             // 
             // menuRemoveAll
             // 
             this.menuRemoveAll.Name = "menuRemoveAll";
-            this.menuRemoveAll.Size = new System.Drawing.Size(210, 24);
+            this.menuRemoveAll.Size = new System.Drawing.Size(209, 24);
             this.menuRemoveAll.Text = "Remove All";
             this.menuRemoveAll.Click += new System.EventHandler(this.menuRemoveAllCommands_Click);
+            // 
+            // menuRemoveUnselectedCommands
+            // 
+            this.menuRemoveUnselectedCommands.Name = "menuRemoveUnselectedCommands";
+            this.menuRemoveUnselectedCommands.Size = new System.Drawing.Size(209, 24);
+            this.menuRemoveUnselectedCommands.Text = "Remove Unselected";
+            this.menuRemoveUnselectedCommands.Click += new System.EventHandler(this.menuRemoveUnselectedCommands_Click);
             // 
             // groupBoxProccessOutputs
             // 
@@ -442,33 +514,43 @@
             this.btnImportCommand.UseVisualStyleBackColor = true;
             this.btnImportCommand.Click += new System.EventHandler(this.btnImportCommand_Click);
             // 
-            // menuSelectAllCommands
+            // toolStripSeparator5
             // 
-            this.menuSelectAllCommands.Name = "menuSelectAllCommands";
-            this.menuSelectAllCommands.Size = new System.Drawing.Size(210, 24);
-            this.menuSelectAllCommands.Text = "Select All";
-            this.menuSelectAllCommands.Click += new System.EventHandler(this.menuSelectAllCommands_Click);
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(206, 6);
             // 
-            // menuUnselectAllCommands
+            // menuMoveCommandUp
             // 
-            this.menuUnselectAllCommands.Name = "menuUnselectAllCommands";
-            this.menuUnselectAllCommands.Size = new System.Drawing.Size(210, 24);
-            this.menuUnselectAllCommands.Text = "Unselect All";
-            this.menuUnselectAllCommands.Click += new System.EventHandler(this.menuUnselectAllCommands_Click);
+            this.menuMoveCommandUp.Name = "menuMoveCommandUp";
+            this.menuMoveCommandUp.Size = new System.Drawing.Size(209, 24);
+            this.menuMoveCommandUp.Text = "Move Up";
+            this.menuMoveCommandUp.Click += new System.EventHandler(this.menuMoveCommandUp_Click);
             // 
-            // menuSelectAllHosts
+            // menuMoveCommandDown
             // 
-            this.menuSelectAllHosts.Name = "menuSelectAllHosts";
-            this.menuSelectAllHosts.Size = new System.Drawing.Size(156, 24);
-            this.menuSelectAllHosts.Text = "Select All";
-            this.menuSelectAllHosts.Click += new System.EventHandler(this.menuSelectAllHosts_Click);
+            this.menuMoveCommandDown.Name = "menuMoveCommandDown";
+            this.menuMoveCommandDown.Size = new System.Drawing.Size(209, 24);
+            this.menuMoveCommandDown.Text = "Move Down";
+            this.menuMoveCommandDown.Click += new System.EventHandler(this.menuMoveCommandDown_Click);
             // 
-            // menuUnselectAllHosts
+            // toolStripSeparator6
             // 
-            this.menuUnselectAllHosts.Name = "menuUnselectAllHosts";
-            this.menuUnselectAllHosts.Size = new System.Drawing.Size(156, 24);
-            this.menuUnselectAllHosts.Text = "Unselect All";
-            this.menuUnselectAllHosts.Click += new System.EventHandler(this.menuUnselectAllHosts_Click);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(207, 6);
+            // 
+            // menuMoveHostUp
+            // 
+            this.menuMoveHostUp.Name = "menuMoveHostUp";
+            this.menuMoveHostUp.Size = new System.Drawing.Size(210, 24);
+            this.menuMoveHostUp.Text = "Move Up";
+            this.menuMoveHostUp.Click += new System.EventHandler(this.menuMoveHostUp_Click);
+            // 
+            // menuMoveHostDown
+            // 
+            this.menuMoveHostDown.Name = "menuMoveHostDown";
+            this.menuMoveHostDown.Size = new System.Drawing.Size(210, 24);
+            this.menuMoveHostDown.Text = "Move Down";
+            this.menuMoveHostDown.Click += new System.EventHandler(this.menuMoveHostDown_Click);
             // 
             // SSHCommandSender
             // 
@@ -533,6 +615,16 @@
         private System.Windows.Forms.ToolStripMenuItem menuUnselectAllCommands;
         private System.Windows.Forms.ToolStripMenuItem menuSelectAllHosts;
         private System.Windows.Forms.ToolStripMenuItem menuUnselectAllHosts;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem menuRemoveUnselectedHosts;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem menuRemoveUnselectedCommands;
+        private System.Windows.Forms.ToolStripMenuItem menuMoveCommandUp;
+        private System.Windows.Forms.ToolStripMenuItem menuMoveCommandDown;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem menuMoveHostUp;
+        private System.Windows.Forms.ToolStripMenuItem menuMoveHostDown;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 
