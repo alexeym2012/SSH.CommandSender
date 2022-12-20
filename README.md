@@ -36,7 +36,7 @@
 
 [![Product Name Screen Shot][product-screenshot]]([https://example.com](https://github.com/alexeym2012/SSH.CommandSender))
 
-<p>A simple app to send commands to multiple hosts via SSH protocol.</p>
+<p>A simple utility to send commands to multiple hosts via SSH protocol.</p>
 <p>Just create a list of hosts and the list of the commands and click "RUN".SSHSSH</p>
 <p>The commands will run in parrallel.</p>
 
