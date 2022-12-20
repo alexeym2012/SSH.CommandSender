@@ -88,12 +88,15 @@ namespace SSH.CommandSender
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Json files|*.json|All files|*.*";
             saveFileDialog.Title = "Save Servers To File";
-            saveFileDialog.ShowDialog();
-
-            if (saveFileDialog.FileName != "")
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allHosts, Formatting.Indented));
+                if (saveFileDialog.FileName != "")
+                {
+                    File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allHosts, Formatting.Indented));
+                }
             }
+
+           
         }
 
         private void btnAddNewHost_Click(object sender, EventArgs e)
@@ -117,13 +120,13 @@ namespace SSH.CommandSender
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Json files|*.json|All files|*.*";
             saveFileDialog.Title = "Save Commands To File";
-            saveFileDialog.ShowDialog();
-
-            if (saveFileDialog.FileName != "")
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allCommands, Formatting.Indented));
+                if (saveFileDialog.FileName != "")
+                {
+                    File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(this._allCommands, Formatting.Indented));
+                }
             }
-
         }
 
         private void btnAddNewCommand_Click(object sender, EventArgs e)
@@ -161,12 +164,16 @@ namespace SSH.CommandSender
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files|*.txt|All files|*.*";
             saveFileDialog.Title = "Save Outputs To File";
-            saveFileDialog.ShowDialog();
-
-            if (saveFileDialog.FileName != "")
+            saveFileDialog.FileName = $"{DateTime.UtcNow.ToString("dd-MM-yyyy_HH:mm:ss")}_log.txt";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName, outputLog);
+                if (saveFileDialog.FileName != "")
+                {
+                    File.WriteAllText(saveFileDialog.FileName, outputLog);
+                }
             }
+
+           
         }
         private void menuEditCommand_Click(object sender, EventArgs e)
         {
