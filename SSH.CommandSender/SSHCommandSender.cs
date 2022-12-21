@@ -246,18 +246,32 @@ namespace SSH.CommandSender
             BindHostsCheckbox(true);
         }
 
-        private void menuRemoveUnselectedHosts_Click(object sender, EventArgs e)
+        private void menuRemoveUncheckedHosts_Click(object sender, EventArgs e)
         {
             var checkedHosts = new HashSet<SshHostDetails>(chkListHosts.CheckedItems.OfType<SshHostDetails>().ToList());
             _allHosts.RemoveAll(h => checkedHosts.Contains(h) == false);
-            BindHostsCheckbox();
+            BindHostsCheckbox(true);
         }
 
-        private void menuRemoveUnselectedCommands_Click(object sender, EventArgs e)
+        private void menuRemoveUncheckedCommands_Click(object sender, EventArgs e)
         {
             var checkedCommands = new HashSet<SshCommandDetails>(chkListCommands.CheckedItems.OfType<SshCommandDetails>().ToList());
             _allCommands.RemoveAll(c => checkedCommands.Contains(c) == false);
-            BindCommandsCheckbox();
+            BindCommandsCheckbox(true);
+        }
+
+        private void menuRemoveCheckedCommands_Click(object sender, EventArgs e)
+        {
+            var checkedCommands = new HashSet<SshCommandDetails>(chkListCommands.CheckedItems.OfType<SshCommandDetails>().ToList());
+            _allCommands.RemoveAll(c => checkedCommands.Contains(c));
+            BindCommandsCheckbox(false);
+        }
+
+        private void menuRemoveCheckedHosts_Click(object sender, EventArgs e)
+        {
+            var checkedHosts = new HashSet<SshHostDetails>(chkListHosts.CheckedItems.OfType<SshHostDetails>().ToList());
+            _allHosts.RemoveAll(h => checkedHosts.Contains(h) == true);
+            BindHostsCheckbox(false);
         }
         private void menuMoveCommandDown_Click(object sender, EventArgs e)
         {
@@ -343,6 +357,13 @@ namespace SSH.CommandSender
                         MessageBoxIcon.Error);
                 }
             }
+        }
+        private void menuCreateCommandFromSelection_Click(object sender, EventArgs e)
+        {
+            var relevantRichTextBox = ctxMenuProccessOutputs.SourceControl as RichTextBox;
+            var selectedText = relevantRichTextBox.SelectedText;
+
+            ShowCommandEditorDialog("Add New Command", new SshCommandDetails(string.Empty, selectedText), true);
         }
 
         private void ShowCommandEditorDialog(string windowTitle, SshCommandDetails command, bool appedToList)
@@ -642,10 +663,13 @@ namespace SSH.CommandSender
             textBox.ForeColor = Color.White;
             textBox.BorderStyle = BorderStyle.None;
             textBox.ContextMenuStrip = ctxMenuProccessOutputs;
+            textBox.SelectionChanged += ((o,e) => menuCreateCommandFromSelection.Visible = menuProccessOutputsSeparator.Visible = string.IsNullOrWhiteSpace(textBox.SelectedText) == false);
+
             result.Controls.Add(textBox);
 
             return result;
         }
+
 
         private void SetUIAccordingToProgrammState()
         {
@@ -685,7 +709,7 @@ namespace SSH.CommandSender
                     {
                         outputTextBox.SelectionColor = Color.Red;
                     }
-                    outputTextBox.AppendText($"[{FormatTime(DateTime.UtcNow)}] {textEntry}");
+                    outputTextBox.AppendText($"[{FormatTime(DateTime.UtcNow)} UTC] {textEntry}");
                     outputTextBox.AppendText(Environment.NewLine);
 
                     outputTextBox.SelectionColor = Color.White;
@@ -701,7 +725,7 @@ namespace SSH.CommandSender
             return fvi.FileVersion;
         }
 
-
+ 
     }
 
 }
