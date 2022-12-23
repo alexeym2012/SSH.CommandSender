@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SSH.CommandSender")]
 [assembly: AssemblyDescription("Developed by Alexey Murashkevich. email: alexeym.bpsys@gmail.com. Link to github: https://github.com/alexeym2012/SSH.CommandSender")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Open Source")]
+[assembly: AssemblyCompany("Open Source MIT")]
 [assembly: AssemblyProduct("SSH.CommandSender")]
 [assembly: AssemblyCopyright("Copyright ©  2022 Alexey Murashkevich and others")]
 [assembly: AssemblyTrademark("")]
