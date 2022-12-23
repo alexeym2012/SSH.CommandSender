@@ -349,7 +349,7 @@ namespace SSH.CommandSender
                     }
                     
 
-                    BindHostsCheckbox(false);
+                    BindHostsCheckbox();
                 }
                 else
                 {
