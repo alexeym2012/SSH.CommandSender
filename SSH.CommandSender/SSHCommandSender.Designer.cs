@@ -33,6 +33,8 @@
             this.tabSshOutputs = new System.Windows.Forms.TabControl();
             this.ctxMenuProccessOutputs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuSaveOutputsToFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuProccessOutputsSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.menuCreateCommandFromSelection = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRunCommands = new System.Windows.Forms.Button();
             this.btnAddNewHost = new System.Windows.Forms.Button();
             this.progressBarRunningTasks = new System.Windows.Forms.ProgressBar();
@@ -77,8 +79,6 @@
             this.btnAddNewCommand = new System.Windows.Forms.Button();
             this.btnExportCommand = new System.Windows.Forms.Button();
             this.btnImportCommand = new System.Windows.Forms.Button();
-            this.menuCreateCommandFromSelection = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuProccessOutputsSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.ctxMenuProccessOutputs.SuspendLayout();
             this.ctxMenuHosts.SuspendLayout();
             this.ctxMenuCommands.SuspendLayout();
@@ -96,12 +96,14 @@
             // 
             this.tabSshOutputs.ContextMenuStrip = this.ctxMenuProccessOutputs;
             this.tabSshOutputs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabSshOutputs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabSshOutputs.Location = new System.Drawing.Point(7, 16);
             this.tabSshOutputs.Margin = new System.Windows.Forms.Padding(0);
             this.tabSshOutputs.Name = "tabSshOutputs";
             this.tabSshOutputs.SelectedIndex = 0;
             this.tabSshOutputs.Size = new System.Drawing.Size(533, 519);
             this.tabSshOutputs.TabIndex = 0;
+            this.tabSshOutputs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabSshOutputs_DrawItem);
             // 
             // ctxMenuProccessOutputs
             // 
@@ -111,7 +113,7 @@
             this.menuProccessOutputsSeparator,
             this.menuCreateCommandFromSelection});
             this.ctxMenuProccessOutputs.Name = "ctxMenuServers";
-            this.ctxMenuProccessOutputs.Size = new System.Drawing.Size(298, 86);
+            this.ctxMenuProccessOutputs.Size = new System.Drawing.Size(298, 58);
             // 
             // menuSaveOutputsToFile
             // 
@@ -119,6 +121,18 @@
             this.menuSaveOutputsToFile.Size = new System.Drawing.Size(297, 24);
             this.menuSaveOutputsToFile.Text = "Save Outputs To File";
             this.menuSaveOutputsToFile.Click += new System.EventHandler(this.menuSaveOutputsToFile_Click);
+            // 
+            // menuProccessOutputsSeparator
+            // 
+            this.menuProccessOutputsSeparator.Name = "menuProccessOutputsSeparator";
+            this.menuProccessOutputsSeparator.Size = new System.Drawing.Size(294, 6);
+            // 
+            // menuCreateCommandFromSelection
+            // 
+            this.menuCreateCommandFromSelection.Name = "menuCreateCommandFromSelection";
+            this.menuCreateCommandFromSelection.Size = new System.Drawing.Size(297, 24);
+            this.menuCreateCommandFromSelection.Text = "Create Command From Selection";
+            this.menuCreateCommandFromSelection.Click += new System.EventHandler(this.menuCreateCommandFromSelection_Click);
             // 
             // btnRunCommands
             // 
@@ -433,6 +447,7 @@
             this.chkListHosts.Name = "chkListHosts";
             this.chkListHosts.Size = new System.Drawing.Size(185, 513);
             this.chkListHosts.TabIndex = 5;
+            this.chkListHosts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.chkListHosts_MouseDoubleClick);
             this.chkListHosts.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkListBox_MouseDown);
             // 
             // tableLayoutPanelServersButtons
@@ -519,6 +534,7 @@
             this.chkListCommands.Name = "chkListCommands";
             this.chkListCommands.Size = new System.Drawing.Size(157, 513);
             this.chkListCommands.TabIndex = 5;
+            this.chkListCommands.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.chkListCommands_MouseDoubleClick);
             this.chkListCommands.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkListBox_MouseDown);
             // 
             // tableLayoutPanelCommandsButtons
@@ -573,18 +589,6 @@
             this.btnImportCommand.Text = "Import";
             this.btnImportCommand.UseVisualStyleBackColor = true;
             this.btnImportCommand.Click += new System.EventHandler(this.btnImportCommand_Click);
-            // 
-            // menuCreateCommandFromSelection
-            // 
-            this.menuCreateCommandFromSelection.Name = "menuCreateCommandFromSelection";
-            this.menuCreateCommandFromSelection.Size = new System.Drawing.Size(297, 24);
-            this.menuCreateCommandFromSelection.Text = "Create Command From Selection";
-            this.menuCreateCommandFromSelection.Click += new System.EventHandler(this.menuCreateCommandFromSelection_Click);
-            // 
-            // menuProccessOutputsSeparator
-            // 
-            this.menuProccessOutputsSeparator.Name = "menuProccessOutputsSeparator";
-            this.menuProccessOutputsSeparator.Size = new System.Drawing.Size(294, 6);
             // 
             // SSHCommandSender
             // 

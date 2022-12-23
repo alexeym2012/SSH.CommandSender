@@ -27,7 +27,6 @@ namespace SSH.CommandSender
         private List<SshHostDetails> _allHosts = new List<SshHostDetails>();
         private List<SshCommandDetails> _allCommands = new List<SshCommandDetails>();
 
-
         private bool _taskRunning = false;
 
 
@@ -365,6 +364,27 @@ namespace SSH.CommandSender
 
             ShowCommandEditorDialog("Add New Command", new SshCommandDetails(string.Empty, selectedText), true);
         }
+        private void chkListHosts_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            BindHostsCheckbox(true);
+        }
+
+        private void chkListCommands_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            BindCommandsCheckbox(true);
+        }
+
+        private void tabSshOutputs_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //e.DrawBackground();
+            if (e.Index < tabSshOutputs.TabPages.Count)
+            {
+                var tabPage = tabSshOutputs.TabPages[e.Index];
+
+                TextRenderer.DrawText(e.Graphics, tabPage.Text, e.Font, e.Bounds, tabPage.ForeColor);
+            }
+       
+        }
 
         private void ShowCommandEditorDialog(string windowTitle, SshCommandDetails command, bool appedToList)
         {
@@ -390,6 +410,11 @@ namespace SSH.CommandSender
                         MessageBoxIcon.Error);
                 }
             }
+        }
+        private void SetTabHeader(TabPage page, Color color)
+        {
+            page.ForeColor = color;
+            //tabSshOutputs.Invalidate();
         }
 
         private void RunTasks()
@@ -417,7 +442,6 @@ namespace SSH.CommandSender
 
             this.progressBarRunningTasks.Maximum = (2 + selectedCommands.Count) * selectedServers.Count;
             this.progressBarRunningTasks.Value = 1;
-
 
             foreach (var server in selectedServers)
             {
@@ -494,7 +518,7 @@ namespace SSH.CommandSender
                     {
                         WriteLogThreadSafety(page, "Exception while running commands: \n" + exception.Message);
 
-                        page.Invoke(new Action(() => { page.Text = server.Name + "-ERROR!"; }));
+                        this.Invoke(new Action(() => { SetErrorTab(page, server); }));
 
                     }
                 }));
@@ -524,6 +548,21 @@ namespace SSH.CommandSender
                 }));
 
             });
+        }
+
+        private void SetErrorTab(TabPage page, SshHostDetails server)
+        {
+            page.Text = server.Name + "-ERROR!";
+            MoveTabToHead(page);
+
+            SetTabHeader(page, Color.Red);
+        }
+
+        private void MoveTabToHead(TabPage page)
+        {
+            tabSshOutputs.TabPages.Remove(page);
+            tabSshOutputs.TabPages.Insert(0, page);
+            tabSshOutputs.SelectedTab = page;
         }
 
         private void BindCommandsCheckbox(bool? forceSelection = null)
@@ -673,8 +712,6 @@ namespace SSH.CommandSender
 
         private void SetUIAccordingToProgrammState()
         {
-            btnAddNewHost.Enabled = !this._taskRunning;
-
             if (this._taskRunning)
             {
                 btnRunCommands.Text = "Cancel Tasks!";
@@ -708,6 +745,7 @@ namespace SSH.CommandSender
                     if (errorLine)
                     {
                         outputTextBox.SelectionColor = Color.Red;
+                        tabPage.ForeColor = Color.DarkGoldenrod;
                     }
                     outputTextBox.AppendText($"[{FormatTime(DateTime.UtcNow)} UTC] {textEntry}");
                     outputTextBox.AppendText(Environment.NewLine);
@@ -725,7 +763,7 @@ namespace SSH.CommandSender
             return fvi.FileVersion;
         }
 
- 
+      
     }
 
 }
