@@ -71,14 +71,14 @@ namespace SSH.CommandSender
 
 
 
-        private void btnImportServers_Click(object sender, EventArgs e)
+        private void btnImportHosts_Click(object sender, EventArgs e)
         {
             var serversFromJsonFile = this.ReturnObjectFromFileDialog<SshHostDetails>();
             if (serversFromJsonFile != null && serversFromJsonFile.Count > 0)
             {
                 this._allHosts.AddRange(serversFromJsonFile);
 
-                BindHostsCheckbox(false);
+                BindHostsCheckbox();
             }
         }
 

@@ -490,7 +490,7 @@
             this.btnImportServers.TabIndex = 4;
             this.btnImportServers.Text = "Import";
             this.btnImportServers.UseVisualStyleBackColor = true;
-            this.btnImportServers.Click += new System.EventHandler(this.btnImportServers_Click);
+            this.btnImportServers.Click += new System.EventHandler(this.btnImportHosts_Click);
             // 
             // groupBoxCommands
             // 
