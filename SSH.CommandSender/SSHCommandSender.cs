@@ -366,12 +366,34 @@ namespace SSH.CommandSender
         }
         private void chkListHosts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            BindHostsCheckbox(true);
+            var checkedListBox = (sender as CheckedListBox);
+            var itemIndex = checkedListBox.IndexFromPoint(e.Location);
+            if (itemIndex >= 0 && itemIndex < checkedListBox.Items.Count)
+            {
+                var relevantHost = checkedListBox.Items[itemIndex] as SshHostDetails;
+                ShowHostEditorDialog($"Edit {relevantHost.Name}", relevantHost, false);
+            }
+            else
+            {
+                BindHostsCheckbox(true);
+            }
+          
         }
 
         private void chkListCommands_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            BindCommandsCheckbox(true);
+            var checkedListBox = (sender as CheckedListBox);
+            var itemIndex = checkedListBox.IndexFromPoint(e.Location);
+            if (itemIndex >= 0 && itemIndex < checkedListBox.Items.Count)
+            {
+                var relevantCommand = checkedListBox.Items[itemIndex] as SshCommandDetails;
+                ShowCommandEditorDialog($"Edit {relevantCommand.Command}", relevantCommand, false);
+            }
+            else
+            {
+                BindCommandsCheckbox(true);
+            }
+        
         }
 
         private void tabSshOutputs_DrawItem(object sender, DrawItemEventArgs e)

@@ -43,6 +43,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.numericPort = new System.Windows.Forms.NumericUpDown();
+            this.lnkTogglePasswordField = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanelButtons.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPort)).BeginInit();
@@ -53,10 +54,11 @@
             this.txtName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtName.Font = new System.Drawing.Font("Ubuntu Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(127, 90);
-            this.txtName.Margin = new System.Windows.Forms.Padding(0, 0, 26, 0);
+            this.txtName.Margin = new System.Windows.Forms.Padding(0);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(482, 30);
+            this.txtName.Size = new System.Drawing.Size(444, 30);
             this.txtName.TabIndex = 2;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // lblName
             // 
@@ -69,11 +71,12 @@
             this.lblName.Size = new System.Drawing.Size(40, 90);
             this.lblName.TabIndex = 1;
             this.lblName.Text = "Name:";
+            this.lblName.Click += new System.EventHandler(this.lblName_Click);
             // 
             // tableLayoutPanelButtons
             // 
             this.tableLayoutPanelButtons.ColumnCount = 5;
-            this.tableLayoutPanelMain.SetColumnSpan(this.tableLayoutPanelButtons, 2);
+            this.tableLayoutPanelMain.SetColumnSpan(this.tableLayoutPanelButtons, 3);
             this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -88,6 +91,7 @@
             this.tableLayoutPanelButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelButtons.Size = new System.Drawing.Size(629, 91);
             this.tableLayoutPanelButtons.TabIndex = 0;
+            this.tableLayoutPanelButtons.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanelButtons_Paint);
             // 
             // btnCancel
             // 
@@ -99,6 +103,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -111,6 +116,7 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lblHost
             // 
@@ -122,16 +128,18 @@
             this.lblHost.Size = new System.Drawing.Size(32, 17);
             this.lblHost.TabIndex = 3;
             this.lblHost.Text = "Host:";
+            this.lblHost.Click += new System.EventHandler(this.lblHost_Click);
             // 
             // txtHost
             // 
             this.txtHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtHost.Font = new System.Drawing.Font("Ubuntu Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHost.Location = new System.Drawing.Point(127, 180);
-            this.txtHost.Margin = new System.Windows.Forms.Padding(0, 0, 26, 0);
+            this.txtHost.Margin = new System.Windows.Forms.Padding(0);
             this.txtHost.Name = "txtHost";
-            this.txtHost.Size = new System.Drawing.Size(482, 30);
+            this.txtHost.Size = new System.Drawing.Size(444, 30);
             this.txtHost.TabIndex = 4;
+            this.txtHost.TextChanged += new System.EventHandler(this.txtHost_TextChanged);
             // 
             // lblPort
             // 
@@ -143,6 +151,7 @@
             this.lblPort.Size = new System.Drawing.Size(31, 17);
             this.lblPort.TabIndex = 5;
             this.lblPort.Text = "Port:";
+            this.lblPort.Click += new System.EventHandler(this.lblPort_Click);
             // 
             // lblUsername
             // 
@@ -154,16 +163,18 @@
             this.lblUsername.Size = new System.Drawing.Size(59, 17);
             this.lblUsername.TabIndex = 7;
             this.lblUsername.Text = "Username:";
+            this.lblUsername.Click += new System.EventHandler(this.lblUsername_Click);
             // 
             // txtUsername
             // 
             this.txtUsername.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtUsername.Font = new System.Drawing.Font("Ubuntu Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(127, 360);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(0, 0, 26, 0);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(0);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(482, 30);
+            this.txtUsername.Size = new System.Drawing.Size(444, 30);
             this.txtUsername.TabIndex = 8;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // lblPassword
             // 
@@ -175,23 +186,26 @@
             this.lblPassword.Size = new System.Drawing.Size(52, 17);
             this.lblPassword.TabIndex = 9;
             this.lblPassword.Text = "Password";
+            this.lblPassword.Click += new System.EventHandler(this.lblPassword_Click);
             // 
             // txtPassword
             // 
             this.txtPassword.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPassword.Font = new System.Drawing.Font("Ubuntu Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(127, 450);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(0, 0, 26, 0);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(0);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(482, 30);
+            this.txtPassword.PasswordChar = '●';
+            this.txtPassword.Size = new System.Drawing.Size(444, 30);
             this.txtPassword.TabIndex = 10;
-            this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // tableLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.ColumnCount = 2;
+            this.tableLayoutPanelMain.ColumnCount = 3;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanelMain.Controls.Add(this.txtPassword, 1, 5);
             this.tableLayoutPanelMain.Controls.Add(this.lblPassword, 0, 5);
             this.tableLayoutPanelMain.Controls.Add(this.txtUsername, 1, 4);
@@ -203,6 +217,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.lblName, 0, 1);
             this.tableLayoutPanelMain.Controls.Add(this.txtName, 1, 1);
             this.tableLayoutPanelMain.Controls.Add(this.numericPort, 1, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.lnkTogglePasswordField, 2, 5);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
@@ -217,6 +232,7 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(635, 637);
             this.tableLayoutPanelMain.TabIndex = 0;
+            this.tableLayoutPanelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanelMain_Paint);
             // 
             // numericPort
             // 
@@ -241,6 +257,31 @@
             0,
             0,
             0});
+            this.numericPort.ValueChanged += new System.EventHandler(this.numericPort_ValueChanged);
+            // 
+            // lnkTogglePasswordField
+            // 
+            this.lnkTogglePasswordField.ActiveLinkColor = System.Drawing.Color.Black;
+            this.lnkTogglePasswordField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lnkTogglePasswordField.AutoSize = true;
+            this.lnkTogglePasswordField.Font = new System.Drawing.Font("Ubuntu Condensed", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lnkTogglePasswordField.Image = global::SSH.CommandSender.Properties.Resources.icon_opened_eye;
+            this.lnkTogglePasswordField.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lnkTogglePasswordField.LinkArea = new System.Windows.Forms.LinkArea(0, 25);
+            this.lnkTogglePasswordField.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkTogglePasswordField.LinkColor = System.Drawing.Color.Black;
+            this.lnkTogglePasswordField.Location = new System.Drawing.Point(571, 450);
+            this.lnkTogglePasswordField.Margin = new System.Windows.Forms.Padding(0);
+            this.lnkTogglePasswordField.Name = "lnkTogglePasswordField";
+            this.lnkTogglePasswordField.Size = new System.Drawing.Size(54, 90);
+            this.lnkTogglePasswordField.TabIndex = 12;
+            this.lnkTogglePasswordField.TabStop = true;
+            this.lnkTogglePasswordField.Text = "         ";
+            this.lnkTogglePasswordField.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lnkTogglePasswordField.UseCompatibleTextRendering = true;
+            this.lnkTogglePasswordField.VisitedLinkColor = System.Drawing.Color.Black;
+            this.lnkTogglePasswordField.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTogglePasswordField_LinkClicked);
             // 
             // HostEditorDialog
             // 
@@ -278,5 +319,6 @@
         private System.Windows.Forms.NumericUpDown numericPort;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.LinkLabel lnkTogglePasswordField;
     }
 }
