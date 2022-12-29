@@ -1,8 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace SSH.CommandSender.Domain
 {
-    public class SshCommandDetails
+    public class SshCommandDetails: ICloneable
     {
         public string Description { get; set; }
         public string Command { get; set; }
@@ -11,6 +12,11 @@ namespace SSH.CommandSender.Domain
         {
             Description = description;
             Command = command;
+        }
+
+        public object Clone()
+        {
+            return new SshCommandDetails(this.Description, this.Command);
         }
     }
 }

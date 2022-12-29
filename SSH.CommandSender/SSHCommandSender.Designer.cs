@@ -79,6 +79,8 @@
             this.btnAddNewCommand = new System.Windows.Forms.Button();
             this.btnExportCommand = new System.Windows.Forms.Button();
             this.btnImportCommand = new System.Windows.Forms.Button();
+            this.menuDuplicateCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDuplicateHost = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxMenuProccessOutputs.SuspendLayout();
             this.ctxMenuHosts.SuspendLayout();
             this.ctxMenuCommands.SuspendLayout();
@@ -182,6 +184,7 @@
             this.menuMoveHostDown,
             this.toolStripSeparator6,
             this.menuItemEditHost,
+            this.menuDuplicateHost,
             this.menuItemRemoveHost,
             this.toolStripSeparator2,
             this.menuSelectAllHosts,
@@ -191,7 +194,7 @@
             this.menuRemoveUncheckedHosts,
             this.menuRemoveCheckedHosts});
             this.ctxMenuHosts.Name = "ctxMenuServers";
-            this.ctxMenuHosts.Size = new System.Drawing.Size(209, 238);
+            this.ctxMenuHosts.Size = new System.Drawing.Size(209, 262);
             // 
             // menuMoveHostUp
             // 
@@ -279,6 +282,7 @@
             this.menuMoveCommandDown,
             this.toolStripSeparator5,
             this.menuEditCommand,
+            this.menuDuplicateCommand,
             this.menuItemRemoveSelectedCommand,
             this.toolStripSeparator1,
             this.menuSelectAllCommands,
@@ -288,84 +292,84 @@
             this.menuRemoveUnselectedCommands,
             this.menuRemoveCheckedCommands});
             this.ctxMenuCommands.Name = "ctxMenuServers";
-            this.ctxMenuCommands.Size = new System.Drawing.Size(209, 238);
+            this.ctxMenuCommands.Size = new System.Drawing.Size(211, 290);
             // 
             // menuMoveCommandUp
             // 
             this.menuMoveCommandUp.Name = "menuMoveCommandUp";
-            this.menuMoveCommandUp.Size = new System.Drawing.Size(208, 24);
+            this.menuMoveCommandUp.Size = new System.Drawing.Size(210, 24);
             this.menuMoveCommandUp.Text = "Move Up";
             this.menuMoveCommandUp.Click += new System.EventHandler(this.menuMoveCommandUp_Click);
             // 
             // menuMoveCommandDown
             // 
             this.menuMoveCommandDown.Name = "menuMoveCommandDown";
-            this.menuMoveCommandDown.Size = new System.Drawing.Size(208, 24);
+            this.menuMoveCommandDown.Size = new System.Drawing.Size(210, 24);
             this.menuMoveCommandDown.Text = "Move Down";
             this.menuMoveCommandDown.Click += new System.EventHandler(this.menuMoveCommandDown_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(207, 6);
             // 
             // menuEditCommand
             // 
             this.menuEditCommand.AccessibleName = "Edit";
             this.menuEditCommand.Name = "menuEditCommand";
-            this.menuEditCommand.Size = new System.Drawing.Size(208, 24);
+            this.menuEditCommand.Size = new System.Drawing.Size(210, 24);
             this.menuEditCommand.Text = "Edit";
             this.menuEditCommand.Click += new System.EventHandler(this.menuEditCommand_Click);
             // 
             // menuItemRemoveSelectedCommand
             // 
             this.menuItemRemoveSelectedCommand.Name = "menuItemRemoveSelectedCommand";
-            this.menuItemRemoveSelectedCommand.Size = new System.Drawing.Size(208, 24);
+            this.menuItemRemoveSelectedCommand.Size = new System.Drawing.Size(210, 24);
             this.menuItemRemoveSelectedCommand.Text = "Remove";
             this.menuItemRemoveSelectedCommand.Click += new System.EventHandler(this.menuItemRemoveSelectedCommand_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
             // 
             // menuSelectAllCommands
             // 
             this.menuSelectAllCommands.Name = "menuSelectAllCommands";
-            this.menuSelectAllCommands.Size = new System.Drawing.Size(208, 24);
+            this.menuSelectAllCommands.Size = new System.Drawing.Size(210, 24);
             this.menuSelectAllCommands.Text = "Select All";
             this.menuSelectAllCommands.Click += new System.EventHandler(this.menuSelectAllCommands_Click);
             // 
             // menuUnselectAllCommands
             // 
             this.menuUnselectAllCommands.Name = "menuUnselectAllCommands";
-            this.menuUnselectAllCommands.Size = new System.Drawing.Size(208, 24);
+            this.menuUnselectAllCommands.Size = new System.Drawing.Size(210, 24);
             this.menuUnselectAllCommands.Text = "Unselect All";
             this.menuUnselectAllCommands.Click += new System.EventHandler(this.menuUnselectAllCommands_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(207, 6);
             // 
             // menuRemoveAll
             // 
             this.menuRemoveAll.Name = "menuRemoveAll";
-            this.menuRemoveAll.Size = new System.Drawing.Size(208, 24);
+            this.menuRemoveAll.Size = new System.Drawing.Size(210, 24);
             this.menuRemoveAll.Text = "Remove All";
             this.menuRemoveAll.Click += new System.EventHandler(this.menuRemoveAllCommands_Click);
             // 
             // menuRemoveUnselectedCommands
             // 
             this.menuRemoveUnselectedCommands.Name = "menuRemoveUnselectedCommands";
-            this.menuRemoveUnselectedCommands.Size = new System.Drawing.Size(208, 24);
+            this.menuRemoveUnselectedCommands.Size = new System.Drawing.Size(210, 24);
             this.menuRemoveUnselectedCommands.Text = "Remove Unchecked";
             this.menuRemoveUnselectedCommands.Click += new System.EventHandler(this.menuRemoveUncheckedCommands_Click);
             // 
             // menuRemoveCheckedCommands
             // 
             this.menuRemoveCheckedCommands.Name = "menuRemoveCheckedCommands";
-            this.menuRemoveCheckedCommands.Size = new System.Drawing.Size(208, 24);
+            this.menuRemoveCheckedCommands.Size = new System.Drawing.Size(210, 24);
             this.menuRemoveCheckedCommands.Text = "Remove Checked";
             this.menuRemoveCheckedCommands.Click += new System.EventHandler(this.menuRemoveCheckedCommands_Click);
             // 
@@ -590,6 +594,20 @@
             this.btnImportCommand.UseVisualStyleBackColor = true;
             this.btnImportCommand.Click += new System.EventHandler(this.btnImportCommand_Click);
             // 
+            // menuDuplicateCommand
+            // 
+            this.menuDuplicateCommand.Name = "menuDuplicateCommand";
+            this.menuDuplicateCommand.Size = new System.Drawing.Size(210, 24);
+            this.menuDuplicateCommand.Text = "Duplicate";
+            this.menuDuplicateCommand.Click += new System.EventHandler(this.menuDuplicateCommand_Click);
+            // 
+            // menuDuplicateHost
+            // 
+            this.menuDuplicateHost.Name = "menuDuplicateHost";
+            this.menuDuplicateHost.Size = new System.Drawing.Size(208, 24);
+            this.menuDuplicateHost.Text = "Duplicate";
+            this.menuDuplicateHost.Click += new System.EventHandler(this.menuDuplicateHost_Click);
+            // 
             // SSHCommandSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -667,6 +685,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuRemoveCheckedCommands;
         private System.Windows.Forms.ToolStripSeparator menuProccessOutputsSeparator;
         private System.Windows.Forms.ToolStripMenuItem menuCreateCommandFromSelection;
+        private System.Windows.Forms.ToolStripMenuItem menuDuplicateHost;
+        private System.Windows.Forms.ToolStripMenuItem menuDuplicateCommand;
     }
 }
 

@@ -1,6 +1,8 @@
-﻿namespace SSH.CommandSender.Domain
+﻿using System;
+
+namespace SSH.CommandSender.Domain
 {
-    public class SshHostDetails
+    public class SshHostDetails : ICloneable
     {
         public string Name { get;  set; }
         public string Host { get; set; }
@@ -18,5 +20,9 @@
         }
 
 
+        public object Clone()
+        {
+            return new SshHostDetails(this.Name, this.Host, this.Username, this.Password, this.Port);
+        }
     }
 }

@@ -408,6 +408,26 @@ namespace SSH.CommandSender
        
         }
 
+        private void menuDuplicateHost_Click(object sender, EventArgs e)
+        {
+            var selectedHost = chkListHosts.SelectedItem as SshHostDetails;
+            var clonedHost = selectedHost.Clone() as SshHostDetails;
+            this._allHosts.Insert(chkListHosts.SelectedIndex, clonedHost);
+
+            BindHostsCheckbox();
+
+        }
+
+        private void menuDuplicateCommand_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = chkListCommands.SelectedItem as SshCommandDetails;
+
+            var clonedCommand = selectedCommand.Clone() as SshCommandDetails;
+            this._allCommands.Insert(chkListCommands.SelectedIndex, clonedCommand);
+
+            BindCommandsCheckbox();
+        }
+
         private void ShowCommandEditorDialog(string windowTitle, SshCommandDetails command, bool appedToList)
         {
             var commandEditorDialog = new CommandEditorDialog(windowTitle, command);
@@ -785,7 +805,7 @@ namespace SSH.CommandSender
             return fvi.FileVersion;
         }
 
-      
+
     }
 
 }
