@@ -43,6 +43,7 @@
             this.menuMoveHostDown = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemEditHost = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDuplicateHost = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemRemoveHost = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuSelectAllHosts = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +57,7 @@
             this.menuMoveCommandDown = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.menuEditCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDuplicateCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemRemoveSelectedCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuSelectAllCommands = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,8 +81,9 @@
             this.btnAddNewCommand = new System.Windows.Forms.Button();
             this.btnExportCommand = new System.Windows.Forms.Button();
             this.btnImportCommand = new System.Windows.Forms.Button();
-            this.menuDuplicateCommand = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuDuplicateHost = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuCopyCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPasteCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.ctxMenuProccessOutputs.SuspendLayout();
             this.ctxMenuHosts.SuspendLayout();
             this.ctxMenuCommands.SuspendLayout();
@@ -222,6 +225,13 @@
             this.menuItemEditHost.Text = "Edit";
             this.menuItemEditHost.Click += new System.EventHandler(this.menuItemEditHost_Click);
             // 
+            // menuDuplicateHost
+            // 
+            this.menuDuplicateHost.Name = "menuDuplicateHost";
+            this.menuDuplicateHost.Size = new System.Drawing.Size(208, 24);
+            this.menuDuplicateHost.Text = "Duplicate";
+            this.menuDuplicateHost.Click += new System.EventHandler(this.menuDuplicateHost_Click);
+            // 
             // menuItemRemoveHost
             // 
             this.menuItemRemoveHost.Name = "menuItemRemoveHost";
@@ -284,6 +294,9 @@
             this.menuEditCommand,
             this.menuDuplicateCommand,
             this.menuItemRemoveSelectedCommand,
+            this.toolStripSeparator7,
+            this.menuCopyCommand,
+            this.menuPasteCommand,
             this.toolStripSeparator1,
             this.menuSelectAllCommands,
             this.menuUnselectAllCommands,
@@ -292,7 +305,8 @@
             this.menuRemoveUnselectedCommands,
             this.menuRemoveCheckedCommands});
             this.ctxMenuCommands.Name = "ctxMenuServers";
-            this.ctxMenuCommands.Size = new System.Drawing.Size(211, 290);
+            this.ctxMenuCommands.Size = new System.Drawing.Size(211, 344);
+            this.ctxMenuCommands.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenuCommands_Opening);
             // 
             // menuMoveCommandUp
             // 
@@ -320,6 +334,13 @@
             this.menuEditCommand.Size = new System.Drawing.Size(210, 24);
             this.menuEditCommand.Text = "Edit";
             this.menuEditCommand.Click += new System.EventHandler(this.menuEditCommand_Click);
+            // 
+            // menuDuplicateCommand
+            // 
+            this.menuDuplicateCommand.Name = "menuDuplicateCommand";
+            this.menuDuplicateCommand.Size = new System.Drawing.Size(210, 24);
+            this.menuDuplicateCommand.Text = "Duplicate";
+            this.menuDuplicateCommand.Click += new System.EventHandler(this.menuDuplicateCommand_Click);
             // 
             // menuItemRemoveSelectedCommand
             // 
@@ -594,19 +615,24 @@
             this.btnImportCommand.UseVisualStyleBackColor = true;
             this.btnImportCommand.Click += new System.EventHandler(this.btnImportCommand_Click);
             // 
-            // menuDuplicateCommand
+            // menuCopyCommand
             // 
-            this.menuDuplicateCommand.Name = "menuDuplicateCommand";
-            this.menuDuplicateCommand.Size = new System.Drawing.Size(210, 24);
-            this.menuDuplicateCommand.Text = "Duplicate";
-            this.menuDuplicateCommand.Click += new System.EventHandler(this.menuDuplicateCommand_Click);
+            this.menuCopyCommand.Name = "menuCopyCommand";
+            this.menuCopyCommand.Size = new System.Drawing.Size(210, 24);
+            this.menuCopyCommand.Text = "Copy";
+            this.menuCopyCommand.Click += new System.EventHandler(this.menuCopyCommand_Click);
             // 
-            // menuDuplicateHost
+            // menuPasteCommand
             // 
-            this.menuDuplicateHost.Name = "menuDuplicateHost";
-            this.menuDuplicateHost.Size = new System.Drawing.Size(208, 24);
-            this.menuDuplicateHost.Text = "Duplicate";
-            this.menuDuplicateHost.Click += new System.EventHandler(this.menuDuplicateHost_Click);
+            this.menuPasteCommand.Name = "menuPasteCommand";
+            this.menuPasteCommand.Size = new System.Drawing.Size(210, 24);
+            this.menuPasteCommand.Text = "Paste";
+            this.menuPasteCommand.Click += new System.EventHandler(this.menuPasteCommand_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(207, 6);
             // 
             // SSHCommandSender
             // 
@@ -687,6 +713,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuCreateCommandFromSelection;
         private System.Windows.Forms.ToolStripMenuItem menuDuplicateHost;
         private System.Windows.Forms.ToolStripMenuItem menuDuplicateCommand;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem menuCopyCommand;
+        private System.Windows.Forms.ToolStripMenuItem menuPasteCommand;
     }
 }
 

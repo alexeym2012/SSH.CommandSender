@@ -331,32 +331,8 @@ namespace SSH.CommandSender
             }
         }
 
-        private void ShowHostEditorDialog(string windowTitle, SshHostDetails host, bool appedToList)
-        {
-            var hostEditorDialog = new HostEditorDialog(windowTitle, host);
-            var dialogResult = hostEditorDialog.ShowDialog(this);
-            if (dialogResult == DialogResult.OK)
-            {
-                var relevantHost = hostEditorDialog.HostDetails;
-                if (string.IsNullOrWhiteSpace(relevantHost.Name) == false &&
-                    string.IsNullOrWhiteSpace(relevantHost.Host) == false &&
-                    string.IsNullOrWhiteSpace(relevantHost.Username) == false  && relevantHost.Port > 0)
-                {
-                    if (appedToList)
-                    {
-                        this._allHosts.Add(relevantHost);
-                    }
-                    
+  
 
-                    BindHostsCheckbox();
-                }
-                else
-                {
-                    MessageBox.Show(this, "Failed to edit the host. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
-        }
         private void menuCreateCommandFromSelection_Click(object sender, EventArgs e)
         {
             var relevantRichTextBox = ctxMenuProccessOutputs.SourceControl as RichTextBox;
@@ -364,6 +340,7 @@ namespace SSH.CommandSender
 
             ShowCommandEditorDialog("Add New Command", new SshCommandDetails(string.Empty, selectedText), true);
         }
+
         private void chkListHosts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var checkedListBox = (sender as CheckedListBox);
@@ -426,6 +403,58 @@ namespace SSH.CommandSender
             this._allCommands.Insert(chkListCommands.SelectedIndex, clonedCommand);
 
             BindCommandsCheckbox();
+        }
+
+        private void ctxMenuCommands_Opening(object sender, CancelEventArgs e)
+        {
+            menuPasteCommand.Enabled = GetCommandFromClipboard() != null;
+        }
+
+        private void menuPasteCommand_Click(object sender, EventArgs e)
+        {
+            var commandFromClipboard = GetCommandFromClipboard();
+            var selectedIndex = 0;
+            if (chkListCommands.SelectedIndex > 0)
+            {
+                selectedIndex = chkListCommands.SelectedIndex;
+            }
+            this._allCommands.Insert(selectedIndex, commandFromClipboard);
+
+            BindCommandsCheckbox();
+        }
+
+        private void menuCopyCommand_Click(object sender, EventArgs e)
+        {
+            var selectedCommand = chkListCommands.SelectedItem as SshCommandDetails;
+         
+            Clipboard.SetText(JsonConvert.SerializeObject(selectedCommand, Formatting.Indented));
+        }
+
+        private void ShowHostEditorDialog(string windowTitle, SshHostDetails host, bool appedToList)
+        {
+            var hostEditorDialog = new HostEditorDialog(windowTitle, host);
+            var dialogResult = hostEditorDialog.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                var relevantHost = hostEditorDialog.HostDetails;
+                if (string.IsNullOrWhiteSpace(relevantHost.Name) == false &&
+                    string.IsNullOrWhiteSpace(relevantHost.Host) == false &&
+                    string.IsNullOrWhiteSpace(relevantHost.Username) == false  && relevantHost.Port > 0)
+                {
+                    if (appedToList)
+                    {
+                        this._allHosts.Add(relevantHost);
+                    }
+                    
+
+                    BindHostsCheckbox();
+                }
+                else
+                {
+                    MessageBox.Show(this, "Failed to edit the host. Please fill all fields!", "Failed!", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void ShowCommandEditorDialog(string windowTitle, SshCommandDetails command, bool appedToList)
@@ -751,7 +780,21 @@ namespace SSH.CommandSender
             return result;
         }
 
+        private SshCommandDetails GetCommandFromClipboard()
+        {
+            SshCommandDetails result = null;
+            try
+            {
+                var textInClipboard = Clipboard.GetText();
+                result = JsonConvert.DeserializeObject<SshCommandDetails>(textInClipboard);
+            }
+            catch (Exception e)
+            {
+                
+            }
 
+            return result;
+        }
         private void SetUIAccordingToProgrammState()
         {
             if (this._taskRunning)
@@ -805,7 +848,7 @@ namespace SSH.CommandSender
             return fvi.FileVersion;
         }
 
-
+      
     }
 
 }
