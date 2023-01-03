@@ -163,7 +163,7 @@ namespace SSH.CommandSender
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files|*.txt|All files|*.*";
             saveFileDialog.Title = "Save Outputs To File";
-            saveFileDialog.FileName = $"{DateTime.UtcNow.ToString("dd-MM-yyyy_HH:mm:ss")}_log.txt";
+            saveFileDialog.FileName = $"{DateTime.UtcNow.ToString("dd-MM-yyyy_HH-mm-ss")}_log.txt";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 if (saveFileDialog.FileName != "")
