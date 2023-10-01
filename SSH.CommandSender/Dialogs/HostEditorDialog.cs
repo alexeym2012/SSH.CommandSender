@@ -46,10 +46,12 @@ namespace SSH.CommandSender.Dialogs
                 DataSourceUpdateMode.OnValidation);
             this.txtUsername.DataBindings.Add("Text", this.HostDetails.AuthenticationDetails, "Username", false,
                 DataSourceUpdateMode.OnValidation);
-    
 
-      
+
+
+            this.comboAuthMethod.SelectedIndexChanged += ComboAuthMethod_SelectedIndexChanged;
         }
+
 
         private void BindAuth()
         {
@@ -178,7 +180,7 @@ namespace SSH.CommandSender.Dialogs
             }
         }
 
-        private void comboAuthMethod_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboAuthMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboAuthMethod.SelectedIndex == 0)
             {
@@ -194,5 +196,6 @@ namespace SSH.CommandSender.Dialogs
 
             BindAuth();
         }
+
     }
 }

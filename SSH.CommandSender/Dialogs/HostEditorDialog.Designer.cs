@@ -178,7 +178,7 @@
             // 
             this.lblPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(74, 473);
+            this.lblPassword.Location = new System.Drawing.Point(59, 378);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(0, 0, 13, 0);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(55, 17);
@@ -357,13 +357,12 @@
             this.comboAuthMethod.Name = "comboAuthMethod";
             this.comboAuthMethod.Size = new System.Drawing.Size(438, 25);
             this.comboAuthMethod.TabIndex = 14;
-            this.comboAuthMethod.SelectedIndexChanged += new System.EventHandler(this.comboAuthMethod_SelectedIndexChanged);
             // 
             // lblPathToKey
             // 
             this.lblPathToKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPathToKey.AutoSize = true;
-            this.lblPathToKey.Location = new System.Drawing.Point(76, 551);
+            this.lblPathToKey.Location = new System.Drawing.Point(61, 441);
             this.lblPathToKey.Margin = new System.Windows.Forms.Padding(3, 0, 12, 0);
             this.lblPathToKey.Name = "lblPathToKey";
             this.lblPathToKey.Size = new System.Drawing.Size(54, 17);
