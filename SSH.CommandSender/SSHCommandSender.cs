@@ -439,7 +439,7 @@ namespace SSH.CommandSender
                 var relevantHost = hostEditorDialog.HostDetails;
                 if (string.IsNullOrWhiteSpace(relevantHost.Name) == false &&
                     string.IsNullOrWhiteSpace(relevantHost.Host) == false &&
-                    string.IsNullOrWhiteSpace(relevantHost.Username) == false  && relevantHost.Port > 0)
+                    relevantHost.AuthenticationDetails.Validate()  && relevantHost.Port > 0)
                 {
                     if (appedToList)
                     {
@@ -527,7 +527,7 @@ namespace SSH.CommandSender
                     }));
                     try
                     {
-                        using (var client = new SshClient(server.Host, server.Port, server.Username, server.Password))
+                        using (var client = server.CreateSshClient())
                         {
                             WriteLogThreadSafety(page, $"Trying to connect to {server.Host}:{server.Port}");
 

@@ -68,6 +68,7 @@
     <Compile Include="Dialogs\HostEditorDialog.Designer.cs">
       <DependentUpon>HostEditorDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Domain\AuthJsonConverter.cs" />
     <Compile Include="Domain\SshCommandDetails.cs" />
     <Compile Include="Domain\SshCommandExtensions.cs" />
     <Compile Include="Domain\SshHostDetails.cs" />
