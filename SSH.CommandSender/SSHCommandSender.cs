@@ -542,14 +542,15 @@ namespace SSH.CommandSender
 
                             foreach (var command in selectedCommands)
                             {
-                                foreach (var commandRow in command.Command.Split('\n'))
+                                foreach (var selectedCommand in command.Command.Split('\n'))
                                 {
-                                    if (string.IsNullOrWhiteSpace(commandRow) == false)
+                                    var cleanedCommand = selectedCommand.Replace("\r", string.Empty);
+                                    if (string.IsNullOrWhiteSpace(cleanedCommand) == false)
                                     {
                                         if (_taskRunning)
                                         {
-                                            WriteLogThreadSafety(page, "Running command: " + commandRow);
-                                            client.CreateCommand(commandRow).ExecuteAsync((progress) =>
+                                            WriteLogThreadSafety(page, "Running command: " + cleanedCommand);
+                                            client.CreateCommand(cleanedCommand).ExecuteAsync((progress) =>
                                             {
                                                 WriteLogThreadSafety(page,
                                                     $"{progress.Line}", progress.IsErrorLine);
